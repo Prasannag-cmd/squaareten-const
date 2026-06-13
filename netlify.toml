@@ -1,5 +1,5 @@
 [build]
-  command = "cd react-temp && npm run build"
+  command = "cd react-temp && npm install && npm run build"
   publish = "react-temp/dist"
 
 [[redirects]]
