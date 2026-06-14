@@ -28,7 +28,10 @@ export default function Contact() {
                 <div className="contact__detail-icon">📞</div>
                 <div>
                   <div className="contact__detail-label">Call Us</div>
-                  <div className="contact__detail-value"><a href="tel:+917540002054">+91 7540002054</a></div>
+                  <div className="contact__detail-value">
+                    <a href="tel:+917540002054">+91 7540002054</a><br />
+                    <a href="tel:+919150765025">+91 91507 65025</a>
+                  </div>
                 </div>
               </div>
               <div className="contact__detail">
@@ -36,7 +39,8 @@ export default function Contact() {
                 <div>
                   <div className="contact__detail-label">WhatsApp Us</div>
                   <div className="contact__detail-value">
-                    <a href="https://wa.me/917540002054?text=Hello%20Squaareten%20Construction%2C%20I%20would%20like%20to%20enquire%20about%20your%20services." target="_blank" rel="noopener noreferrer">+91 7540002054</a>
+                    <a href="https://wa.me/917540002054?text=Hello%20Squaareten%20Construction%2C%20I%20would%20like%20to%20enquire%20about%20your%20services." target="_blank" rel="noopener noreferrer">+91 7540002054</a><br />
+                    <a href="https://wa.me/919150765025?text=Hello%20Squareten%20Constructions%2C%20I%20would%20like%20to%20enquire%20about%20your%20services." target="_blank" rel="noopener noreferrer">+91 91507 65025</a>
                   </div>
                 </div>
               </div>
@@ -53,19 +57,19 @@ export default function Contact() {
           <form className="contact__form" ref={formRef} id="contact-form" onSubmit={(e) => e.preventDefault()}>
             <div className="contact__form-group">
               <label className="contact__form-label" htmlFor="name">Your Name</label>
-              <input type="text" className="contact__form-input" id="name" name="name" placeholder="John Doe" required />
+              <input type="text" className="contact__form-input" id="name" name="name" placeholder="Enter your name" required />
             </div>
             <div className="contact__form-group">
               <label className="contact__form-label" htmlFor="email">Email Address</label>
-              <input type="email" className="contact__form-input" id="email" name="email" placeholder="john@example.com" required />
+              <input type="email" className="contact__form-input" id="email" name="email" placeholder="Enter your email address" required />
             </div>
             <div className="contact__form-group">
               <label className="contact__form-label" htmlFor="phone">Phone Number</label>
-              <input type="tel" className="contact__form-input" id="phone" name="phone" placeholder="+91 7540002054" />
+              <input type="tel" className="contact__form-input" id="phone" name="phone" placeholder="Enter your phone number" />
             </div>
             <div className="contact__form-group">
               <label className="contact__form-label" htmlFor="message">Your Message</label>
-              <textarea className="contact__form-textarea" id="message" name="message" placeholder="Tell us about your project..." required></textarea>
+              <textarea className="contact__form-textarea" id="message" name="message" placeholder="Enter your message" required></textarea>
             </div>
             <button type="submit" className="btn btn--primary contact__form-submit">Send Message</button>
           </form>

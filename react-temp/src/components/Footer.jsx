@@ -77,7 +77,9 @@ export default function Footer() {
             <h4 className="footer__column-title">Contact</h4>
             <div className="footer__links">
               <a href="tel:+917540002054" className="footer__link">Call: +91 7540002054</a>
+              <a href="tel:+919150765025" className="footer__link">Call: +91 91507 65025</a>
               <a href="https://wa.me/917540002054?text=Hello%20Squaareten%20Construction%2C%20I%20would%20like%20to%20enquire%20about%20your%20services." target="_blank" rel="noopener noreferrer" className="footer__link">WhatsApp: +91 7540002054</a>
+              <a href="https://wa.me/919150765025?text=Hello%20Squareten%20Constructions%2C%20I%20would%20like%20to%20enquire%20about%20your%20services." target="_blank" rel="noopener noreferrer" className="footer__link">WhatsApp: +91 91507 65025</a>
               <a href="mailto:info@squaareten.com" className="footer__link">Email: info@squaareten.com</a>
               <span className="footer__link" style={{ cursor: 'default', color: 'var(--color-text-muted)' }}>Mon – Sat: 9 AM – 7 PM</span>
             </div>

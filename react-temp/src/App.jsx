@@ -11,6 +11,7 @@ import ProjectsPage from './pages/ProjectsPage';
 import AboutPage from './pages/AboutPage';
 import CareersPage from './pages/CareersPage';
 import ProjectDetailPage from './pages/ProjectDetailPage';
+import KaruppiahNagarPage from './pages/KaruppiahNagarPage';
 import CustomCursor from './components/CustomCursor';
 import WhatsAppFAB from './components/WhatsAppFAB';
 import AIAssistant from './components/AIAssistant';
@@ -60,20 +61,18 @@ export default function App() {
 
       {/* Routes */}
       <Routes>
-        <Route
-          path="/"
-          element={
-            <HomePage
-              isEstimatorOpen={isEstimatorOpen}
-              setIsEstimatorOpen={setIsEstimatorOpen}
-            />
-          }
-        />
-        <Route path="/projects" element={<ProjectsPage />} />
-        <Route path="/projects/:slug" element={<ProjectDetailPage />} />
-        <Route path="/about" element={<AboutPage />} />
-        <Route path="/careers" element={<CareersPage />} />
-        <Route path="*" element={<Navigate to="/" replace />} />
+        <Route path="/" element={
+              <HomePage
+                isEstimatorOpen={isEstimatorOpen}
+                setIsEstimatorOpen={setIsEstimatorOpen}
+              />
+            } />
+          <Route path="/projects" element={<ProjectsPage />} />
+          <Route path="/projects/karuppiah-nagar" element={<KaruppiahNagarPage />} />
+          <Route path="/projects/:slug" element={<ProjectDetailPage />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/careers" element={<CareersPage />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
 
       {/* Global AI Cost Estimator Modal */}

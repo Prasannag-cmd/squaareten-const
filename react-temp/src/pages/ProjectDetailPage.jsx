@@ -297,34 +297,20 @@ const allProjects = [
     features: ['4 Bedrooms', 'Home Theatre', 'Terrace Garden', 'Modular Kitchen', 'Study Room', 'Double Car Parking'],
   },
   {
-    id: 'golden-acres-plot-a',
-    name: 'Golden Acres — Plot A',
-    location: 'Madurai, Tamil Nadu',
+    id: 'karuppiah-nagar',
+    name: 'Karuppiah Nagar',
+    location: 'Kovilpapakudi, Madurai',
     category: 'plots',
     status: 'Available',
     img: '/assets/images/hero-bg.png',
-    description: 'DTCP-approved premium residential plot in a gated community with all amenities.',
-    plotArea: '2,400 sq.ft',
+    description: 'Premium DTCP-approved residential plots with 30 & 40 ft roads, underground drainage, and excellent connectivity to Madurai city.',
+    plotArea: '1,200 – 2,400 sq.ft',
     approval: 'DTCP Approved',
-    price: '₹48 Lakhs',
-    story: 'Golden Acres Plot A is a premium DTCP-approved residential plot located in a secure gated community. With 24-hour security, internal roads, and proximity to schools and hospitals, this is the ideal canvas for your dream home.',
-    gallery: ['/assets/images/hero-bg.png', '/assets/images/about-team.png'],
-    features: ['DTCP Approved', 'Gated Community', '24/7 Security', 'Internal Roads', 'Water & Electricity', 'Near Schools'],
-  },
-  {
-    id: 'golden-acres-plot-b',
-    name: 'Golden Acres — Plot B',
-    location: 'Chennai, Tamil Nadu',
-    category: 'plots',
-    status: 'Available',
-    img: '/assets/images/about-team.png',
-    description: 'Corner plot with excellent road connectivity, suitable for villa or duplex construction.',
-    plotArea: '3,200 sq.ft',
-    approval: 'CMDA Approved',
-    price: '₹72 Lakhs',
-    story: 'This premium corner plot in Chennai offers excellent road connectivity and is CMDA approved. With 3,200 sq.ft of space, it is perfectly suited for a villa or duplex construction, giving you the freedom to design your ideal home.',
-    gallery: ['/assets/images/about-team.png', '/assets/images/hero-bg.png'],
-    features: ['CMDA Approved', 'Corner Plot', 'Road Facing', 'Clear Title', 'Ready for Construction', 'Near IT Corridor'],
+    price: 'Starting ₹15 Lakhs',
+    story: 'Karuppiah Nagar is a premium residential plot development by Squareten Constructions Pvt Ltd, located in the rapidly growing Kovilpapakudi area of Madurai. The DTCP-approved layout features well-planned plots ranging from 1,200 to 2,400 sq.ft with 30 ft and 40 ft wide internal roads, underground drainage, street lighting, and landscaped common areas. With clear title deeds and excellent connectivity to Madurai city center, Karuppiah Nagar offers the perfect canvas for your dream home.',
+    gallery: ['/assets/images/hero-bg.png'],
+    features: ['DTCP Approved Layout', '30 & 40 ft Wide Roads', 'Underground Drainage', 'Street Lighting', 'Clear Title Deeds', 'Excellent Connectivity'],
+    isCustomPage: true,
   },
 ];
 const getGalleryItemClass = (index, total) => {
@@ -364,6 +350,13 @@ export default function ProjectDetailPage() {
   const [lightboxIndex, setLightboxIndex] = useState(0);
 
   const project = allProjects.find(p => p.id === slug);
+
+  // Redirect to custom page if project has its own dedicated page
+  useEffect(() => {
+    if (project?.isCustomPage) {
+      navigate(`/projects/${project.id}`, { replace: true });
+    }
+  }, [project, navigate]);
 
   // Scroll to top on mount
   useEffect(() => {

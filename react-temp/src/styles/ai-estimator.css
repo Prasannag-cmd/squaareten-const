@@ -398,15 +398,47 @@
 
 /* ── Responsive ───────────────────────────────────── */
 @media (max-width: 640px) {
+  .estimator {
+    width: 95%;
+    max-height: 95vh;
+  }
+
+  .estimator__header {
+    padding: var(--space-lg) var(--space-lg) var(--space-md);
+  }
+
+  .estimator__progress {
+    padding: var(--space-sm) var(--space-lg);
+  }
+
+  .estimator__body {
+    padding: var(--space-md) var(--space-lg) var(--space-lg);
+  }
+
   .estimator__cards {
     grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-sm);
   }
 
   .estimator__toggles {
     flex-direction: column;
+    gap: var(--space-sm);
   }
 
   .estimator__results-grid {
     grid-template-columns: 1fr;
+    gap: var(--space-sm);
   }
 }
+
+@media (max-width: 480px) {
+  .estimator__cards {
+    grid-template-columns: 1fr;
+  }
+  
+  .estimator__nav .btn {
+    padding: 0.75rem 1.25rem;
+    font-size: var(--fs-caption);
+  }
+}
+

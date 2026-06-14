@@ -10,12 +10,30 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
 
 const slides = [
-  { img: '/assets/images/project-residential.png', alt: 'Residential project', category: 'Residential', title: 'Sunrise Residences', desc: 'A luxurious gated community with 48 premium villas featuring contemporary architecture.' },
-  { img: '/assets/images/pool-image-1.jpeg', alt: 'Swimming pool project', category: 'Swimming Pool', title: 'Swimming Pool at Mannadimangalam', desc: 'A luxury private concrete swimming pool with state-of-the-art filtration and lighting.' },
-  { img: '/assets/images/project-villa.png', alt: 'Villa project', category: 'Villa', title: 'The Grand Estate', desc: 'An ultra-luxury 8,500 sq.ft. villa with infinity pool and Italian marble throughout.' },
-  { img: '/assets/images/project-renovation.png', alt: 'Renovation project', category: 'Renovation', title: 'Heritage Revival', desc: 'A stunning transformation of a 1960s bungalow into a modern smart home.' },
-  { img: '/assets/images/thirupaalai-image-1.jpeg', alt: 'Residential project', category: 'Residential', title: 'Thirupaalai Residence', desc: 'A modern contemporary premium residential project under construction in Madurai.' },
-  { img: '/assets/images/bonita-image-1.jpeg', alt: 'Salon project', category: 'Interior', title: 'Bonita Hair & Skin Care', desc: 'A premium salon and wellness space designed and executed with modern interiors.' },
+  {
+    id: 'maha-groups-residence',
+    img: '/assets/images/project-maha-1.jpg',
+    alt: 'Maha groups - Residence',
+    category: 'Residential',
+    title: 'Maha groups - Residence',
+    desc: 'A premium contemporary double-story residential design combining horizontal wood-look accents, concrete textures, and custom geometric facade elements.',
+  },
+  {
+    id: 'swimming-pool-mannadimangalam',
+    img: '/assets/images/pool-image-1.jpeg',
+    alt: 'Swimming Pool at Mannadimangalam',
+    category: 'Swimming Pool',
+    title: 'Swimming Pool at Mannadimangalam',
+    desc: 'A premium concrete swimming pool construction featuring custom filtration, blue mosaic tile finishing, and integrated lighting.',
+  },
+  {
+    id: 'karuppiah-nagar',
+    img: '/assets/images/hero-bg.png',
+    alt: 'Karuppiah Nagar Available Plots',
+    category: 'Plots',
+    title: 'Karuppiah Nagar',
+    desc: 'Premium DTCP-approved residential plots with 30 & 40 ft roads, underground drainage, and excellent connectivity to Madurai city.',
+  }
 ];
 
 export default function ProjectCarousel() {
@@ -92,7 +110,7 @@ export default function ProjectCarousel() {
             onTouchEnd={onDragEnd}
           >
             {slides.map((slide, i) => (
-              <div className="carousel__slide" key={i}>
+              <Link to={`/projects/${slide.id}`} className="carousel__slide" key={i} style={{ display: 'block' }}>
                 <img src={slide.img} alt={slide.alt} className="carousel__slide-image" />
                 <div className="carousel__slide-overlay"></div>
                 <div className="carousel__slide-content">
@@ -100,7 +118,7 @@ export default function ProjectCarousel() {
                   <h3 className="carousel__slide-title">{slide.title}</h3>
                   <p className="carousel__slide-desc">{slide.desc}</p>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
 

@@ -107,28 +107,16 @@ const projectsData = [
 
   // Available Plots
   {
-    id: 'golden-acres-plot-a',
-    name: 'Golden Acres — Plot A',
-    location: 'Madurai, Tamil Nadu',
+    id: 'karuppiah-nagar',
+    name: 'Karuppiah Nagar',
+    location: 'Kovilpapakudi, Madurai',
     category: 'plots',
     status: 'Available Plot',
     img: '/assets/images/hero-bg.png',
-    description: 'DTCP-approved premium residential plot in a gated community with all amenities.',
-    plotArea: '2,400 sq.ft',
+    description: 'Premium DTCP-approved residential plots with 30 & 40 ft roads, underground drainage, and excellent connectivity to Madurai city.',
+    plotArea: '1,200 – 2,400 sq.ft',
     approval: 'DTCP Approved',
-    price: '₹48 Lakhs',
-  },
-  {
-    id: 'golden-acres-plot-b',
-    name: 'Golden Acres — Plot B',
-    location: 'Chennai, Tamil Nadu',
-    category: 'plots',
-    status: 'Available Plot',
-    img: '/assets/images/about-team.png',
-    description: 'Corner plot with excellent road connectivity, suitable for villa or duplex construction.',
-    plotArea: '3,200 sq.ft',
-    approval: 'CMDA Approved',
-    price: '₹72 Lakhs',
+    price: 'Starting ₹15 Lakhs',
   },
 ];
 
