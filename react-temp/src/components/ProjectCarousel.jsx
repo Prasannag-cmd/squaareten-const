@@ -11,11 +11,11 @@ gsap.registerPlugin(ScrollTrigger);
 
 const slides = [
   { img: '/assets/images/project-residential.png', alt: 'Residential project', category: 'Residential', title: 'Sunrise Residences', desc: 'A luxurious gated community with 48 premium villas featuring contemporary architecture.' },
-  { img: '/assets/images/project-commercial.png', alt: 'Commercial project', category: 'Commercial', title: 'Apex Business Tower', desc: 'A 12-story Grade A office complex with sustainable design and LEED certification.' },
+  { img: '/assets/images/pool-image-1.jpeg', alt: 'Swimming pool project', category: 'Swimming Pool', title: 'Swimming Pool at Mannadimangalam', desc: 'A luxury private concrete swimming pool with state-of-the-art filtration and lighting.' },
   { img: '/assets/images/project-villa.png', alt: 'Villa project', category: 'Villa', title: 'The Grand Estate', desc: 'An ultra-luxury 8,500 sq.ft. villa with infinity pool and Italian marble throughout.' },
   { img: '/assets/images/project-renovation.png', alt: 'Renovation project', category: 'Renovation', title: 'Heritage Revival', desc: 'A stunning transformation of a 1960s bungalow into a modern smart home.' },
-  { img: '/assets/images/project-interior.png', alt: 'Interior project', category: 'Interior', title: 'Zen Living Spaces', desc: 'Minimalist Japanese-inspired interiors with natural materials and bespoke furniture.' },
-  { img: '/assets/images/project-turnkey.png', alt: 'Turnkey project', category: 'Turnkey', title: 'Marina Bay Complex', desc: 'A complete mixed-use development with retail, residential, and recreational zones.' },
+  { img: '/assets/images/thirupaalai-image-1.jpeg', alt: 'Residential project', category: 'Residential', title: 'Thirupaalai Residence', desc: 'A modern contemporary premium residential project under construction in Madurai.' },
+  { img: '/assets/images/bonita-image-1.jpeg', alt: 'Salon project', category: 'Interior', title: 'Bonita Hair & Skin Care', desc: 'A premium salon and wellness space designed and executed with modern interiors.' },
 ];
 
 export default function ProjectCarousel() {

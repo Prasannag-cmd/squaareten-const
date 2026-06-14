@@ -21,14 +21,14 @@ export default function Contact() {
                 <div className="contact__detail-icon">📍</div>
                 <div>
                   <div className="contact__detail-label">Visit Us</div>
-                  <div className="contact__detail-value">123 Construction Avenue, Business District, City - 560001</div>
+                  <div className="contact__detail-value">116/294 J VIJAYASEKARAN STREET, KANMAIKARAI ROAD, ARAPALAYAM, MADURAI - 625016.</div>
                 </div>
               </div>
               <div className="contact__detail">
                 <div className="contact__detail-icon">📞</div>
                 <div>
                   <div className="contact__detail-label">Call Us</div>
-                  <div className="contact__detail-value"><a href="tel:+919750008484">+91 97500 08484</a></div>
+                  <div className="contact__detail-value"><a href="tel:+917540002054">+91 7540002054</a></div>
                 </div>
               </div>
               <div className="contact__detail">
@@ -36,7 +36,7 @@ export default function Contact() {
                 <div>
                   <div className="contact__detail-label">WhatsApp Us</div>
                   <div className="contact__detail-value">
-                    <a href="https://wa.me/919750008484?text=Hello%20Squaareten%20Construction%2C%20I%20would%20like%20to%20enquire%20about%20your%20services." target="_blank" rel="noopener noreferrer">+91 97500 08484</a>
+                    <a href="https://wa.me/917540002054?text=Hello%20Squaareten%20Construction%2C%20I%20would%20like%20to%20enquire%20about%20your%20services." target="_blank" rel="noopener noreferrer">+91 7540002054</a>
                   </div>
                 </div>
               </div>
@@ -61,7 +61,7 @@ export default function Contact() {
             </div>
             <div className="contact__form-group">
               <label className="contact__form-label" htmlFor="phone">Phone Number</label>
-              <input type="tel" className="contact__form-input" id="phone" name="phone" placeholder="+91 97500 08484" />
+              <input type="tel" className="contact__form-input" id="phone" name="phone" placeholder="+91 7540002054" />
             </div>
             <div className="contact__form-group">
               <label className="contact__form-label" htmlFor="message">Your Message</label>

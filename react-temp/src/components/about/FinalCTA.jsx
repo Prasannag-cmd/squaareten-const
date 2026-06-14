@@ -65,7 +65,7 @@ export default function FinalCTA() {
         </p>
         <div className="final-cta__actions">
           <Link to="/#contact" className="btn--gold">Start Your Project</Link>
-          <a href="tel:+919750008484" className="btn--ghost">Contact Us</a>
+          <a href="tel:+917540002054" className="btn--ghost">Contact Us</a>
         </div>
       </div>
     </section>

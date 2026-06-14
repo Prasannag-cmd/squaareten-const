@@ -25,3 +25,7 @@ yarn-error.log*
 *.njsproj
 *.sln
 *.swp
+
+# Dependencies and Build Outputs
+node_modules/
+dist/

@@ -24,7 +24,7 @@ export function initAssistant() {
     { keys: ['renovation', 'remodel', 'upgrade'], response: 'Our Renovation & Remodeling service transforms existing spaces:\n\n🔧 Complete home makeovers\n🏠 Kitchen & bathroom remodeling\n🏛️ Heritage building restoration\n🏗️ Structural reinforcement\n\nWe preserve what you love while upgrading for modern living.', chips: ['Renovation Cost', 'Before & After'] },
     { keys: ['interior', 'design', 'furnish'], response: 'Our Interior Design services include:\n\n🎨 Concept design & 3D visualization\n🪑 Custom furniture & cabinetry\n💡 Lighting design\n🖼️ Art curation & styling\n\nWe offer Basic, Premium, and Ultra-Luxury packages.', chips: ['Interior Packages', 'Cost Estimate'] },
     { keys: ['timeline', 'how long', 'duration', 'time', 'months'], response: 'Typical project timelines:\n\n⏱️ Residential: 8–12 months\n⏱️ Villa: 12–18 months\n⏱️ Commercial: 14–24 months\n⏱️ Renovation: 3–6 months\n⏱️ Interior: 2–4 months\n\nTimelines depend on project size and complexity.', chips: ['Cost Estimate', 'Book Consultation'] },
-    { keys: ['book', 'consult', 'meeting', 'appointment', 'contact', 'call'], response: 'We\'d love to discuss your project! Here\'s how to reach us:\n\n📞 +91 97500 08484\n💬 WhatsApp: +91 97500 08484\n✉️ info@squaareten.com\n📍 Visit our office\n\nOr fill out the contact form on this page and we\'ll call you within 24 hours!', chips: ['WhatsApp Us', 'Go to Contact', 'Services'] },
+    { keys: ['book', 'consult', 'meeting', 'appointment', 'contact', 'call'], response: 'We\'d love to discuss your project! Here\'s how to reach us:\n\n📞 +91 7540002054\n💬 WhatsApp: +91 7540002054\n✉️ info@squaareten.com\n📍 Visit our office\n\nOr fill out the contact form on this page and we\'ll call you within 24 hours!', chips: ['WhatsApp Us', 'Go to Contact', 'Services'] },
     { keys: ['team', 'experience', 'about', 'who', 'company'], response: 'Squaare Ten Constructions has been building excellence for 10+ years:\n\n👥 50+ experienced professionals\n🏗️ 250+ projects completed\n⭐ 98% client satisfaction rate\n🏆 Multiple industry awards\n\nWe\'re committed to quality, transparency, and timely delivery.', chips: ['View Projects', 'Services'] },
     { keys: ['turnkey', 'end to end', 'complete', 'full'], response: 'Our Turnkey Solution is our most comprehensive offering — just hand us the key!\n\n✅ Architectural design\n✅ Structural engineering\n✅ Construction management\n✅ Interior design & furnishing\n✅ Landscaping & exterior\n✅ Final handover with quality check\n\nOne team, one timeline, zero hassle.', chips: ['Cost Estimate', 'Book Consultation'] },
     { keys: ['material', 'quality', 'brand', 'cement', 'steel', 'marble'], response: 'We use only premium materials from trusted brands:\n\n🧱 UltraTech / ACC Cement\n🔩 Tata Steel / JSW\n🪨 Italian & Indian marble\n🪟 Saint-Gobain glass\n🚰 Jaquar / Kohler fittings\n🎨 Asian Paints premium range\n\nAll materials come with warranty certificates.', chips: ['View Projects', 'Cost Estimate'] },
@@ -137,7 +137,7 @@ export function initAssistant() {
           return;
         }
         if (text === 'WhatsApp Us') {
-          window.open('https://wa.me/919750008484?text=Hello%20Squaare%20Ten%20Constructions%2C%20I%20would%20like%20to%20enquire%20about%20your%20services.', '_blank');
+          window.open('https://wa.me/917540002054?text=Hello%20Squaare%20Ten%20Constructions%2C%20I%20would%20like%20to%20enquire%20about%20your%20services.', '_blank');
           return;
         }
         if (text === 'View Projects') {
