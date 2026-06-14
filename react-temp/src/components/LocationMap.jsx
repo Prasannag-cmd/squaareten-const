@@ -51,7 +51,7 @@ export default function LocationMap() {
           <div className="kn-location__map">
             <iframe
               title="Karuppiah Nagar Location"
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3930.0!2d78.1!3d9.9!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zOcKwNTQnMDAuMCJOIDc4wrAwNicwMC4wIkU!5e0!3m2!1sen!2sin!4v1"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3929.0732386927575!2d78.0882407!3d9.9801068!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b00c93caa2f2cf1%3A0x2b08f0eae2e0af2!2sKARUPPIAH%20NAGAR%20PHASE%20I!5e0!3m2!1sen!2sin!4v1718412345678!5m2!1sen!2sin"
               width="100%"
               height="100%"
               style={{ border: 0, borderRadius: '12px' }}
