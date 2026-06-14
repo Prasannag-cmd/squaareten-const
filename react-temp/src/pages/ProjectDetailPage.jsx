@@ -235,15 +235,13 @@ const allProjects = [
     id: 'sandhaipettai-residence',
     name: 'Sandhaipettai Residence',
     location: 'Sandhaipettai, Madurai',
-    category: 'ongoing',
-    status: 'Ongoing',
+    category: 'completed',
+    status: 'Completed',
     img: '/assets/images/sandhaipettai-image-1.jpeg',
     description: 'A premium residential project under construction in Madurai featuring modern architectural planning and engineering.',
     area: '4,200 sq.ft',
-    progress: 35,
-    phase: 'Structural & Reinforcement Work',
-    expectedCompletion: 'June 2027',
-    story: 'Located in the historic area of Sandhaipettai in Madurai, this ongoing residential build represents Squaare Ten\'s commitment to premium quality structural engineering. The building features an optimized load-bearing design, high-strength concrete reinforcement, and robust foundation systems. Our team is working closely with top consultants to ensure every aspect of the project meets highest safety and efficiency standards. Custom planning allows for a layout that blends traditional spatial values with high-end modern amenities, perfectly suited for the urban landscape of Madurai.',
+    year: '2026',
+    story: 'Located in the historic area of Sandhaipettai in Madurai, this residential build represents Squaare Ten\'s commitment to premium quality structural engineering. The building features an optimized load-bearing design, high-strength concrete reinforcement, and robust foundation systems. Our team is working closely with top consultants to ensure every aspect of the project meets highest safety and efficiency standards. Custom planning allows for a layout that blends traditional spatial values with high-end modern amenities, perfectly suited for the urban landscape of Madurai.',
     gallery: [
       '/assets/images/sandhaipettai-image-1.jpeg',
       '/assets/images/sandhaipettai-image-2.jpeg',
@@ -329,6 +327,26 @@ const allProjects = [
     features: ['CMDA Approved', 'Corner Plot', 'Road Facing', 'Clear Title', 'Ready for Construction', 'Near IT Corridor'],
   },
 ];
+const getGalleryItemClass = (index, total) => {
+  if (total === 2) {
+    return 'pd-gallery__item--half';
+  }
+  if (total === 5) {
+    return index < 2 ? 'pd-gallery__item--half' : 'pd-gallery__item--third';
+  }
+  if (total === 10) {
+    if (index === 9) return 'pd-gallery__item--full';
+    return index === 0 ? 'pd-gallery__item--large' : 'pd-gallery__item--standard';
+  }
+  if (total === 19) {
+    if (index === 18) return 'pd-gallery__item--full';
+    return (index === 0 || index === 12) ? 'pd-gallery__item--large' : 'pd-gallery__item--standard';
+  }
+  if (total % 3 === 0) {
+    return index === 0 ? 'pd-gallery__item--large' : 'pd-gallery__item--standard';
+  }
+  return 'pd-gallery__item--standard';
+};
 
 /* ── Location Pin SVG ────────────────────────────────── */
 const LocationPin = () => (
@@ -597,7 +615,7 @@ export default function ProjectDetailPage() {
                 {project.gallery.map((img, i) => (
                   <div
                     key={i}
-                    className={`pd-gallery__item ${i === 0 ? 'pd-gallery__item--large' : ''}`}
+                    className={`pd-gallery__item ${getGalleryItemClass(i, project.gallery.length)}`}
                     onClick={() => openLightbox(i)}
                     role="button"
                     tabIndex={0}

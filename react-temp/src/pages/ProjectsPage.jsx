@@ -86,12 +86,11 @@ const projectsData = [
     name: 'Sandhaipettai Residence',
     location: 'Sandhaipettai, Madurai',
     category: 'projects',
-    status: 'Ongoing',
+    status: 'Completed',
     img: '/assets/images/sandhaipettai-image-1.jpeg',
     description: 'A premium residential project under construction in Madurai featuring modern architectural planning and engineering.',
-    progress: 35,
-    phase: 'Structural & Reinforcement Work',
-    expectedCompletion: 'June 2027',
+    area: '4,200 sq.ft',
+    year: '2026',
   },
   
   {
