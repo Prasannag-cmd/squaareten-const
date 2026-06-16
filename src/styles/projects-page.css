@@ -75,7 +75,6 @@
   font-family: var(--font-heading);
   font-size: clamp(2.5rem, 5.5vw, 4.5rem);
   font-weight: var(--fw-bold);
-  font-style: italic;
   color: #FFFFFF;
   line-height: var(--lh-tight);
   margin-bottom: var(--space-lg);
@@ -374,7 +373,6 @@
   font-family: var(--font-heading);
   font-size: var(--fs-h3);
   font-weight: var(--fw-bold);
-  font-style: italic;
   color: var(--color-text);
   margin-bottom: var(--space-xs);
   line-height: var(--lh-snug);
@@ -547,7 +545,6 @@
   font-family: var(--font-heading);
   font-size: clamp(2rem, 4.5vw, 3.5rem);
   font-weight: var(--fw-bold);
-  font-style: italic;
   color: #FFFFFF;
   line-height: var(--lh-tight);
   margin-bottom: var(--space-lg);
@@ -735,7 +732,6 @@
     font-family: var(--font-heading);
     font-size: clamp(2rem, 3.5vw, 2.75rem);
     font-weight: var(--fw-bold);
-    font-style: italic;
     line-height: var(--lh-tight);
     color: #FFFFFF;
     margin-top: var(--space-sm);
@@ -942,7 +938,6 @@
     font-family: var(--font-heading);
     font-size: var(--fs-h2);
     font-weight: var(--fw-bold);
-    font-style: italic;
     color: #FFFFFF;
     margin-bottom: var(--space-lg);
     line-height: var(--lh-tight);
@@ -981,7 +976,6 @@
     font-family: var(--font-heading);
     font-size: clamp(2rem, 5vw, 3rem);
     font-weight: var(--fw-bold);
-    font-style: italic;
     line-height: var(--lh-tight);
     color: var(--color-text);
     margin-top: var(--space-xs);
@@ -1102,7 +1096,6 @@
     font-family: var(--font-heading);
     font-size: var(--fs-h2);
     font-weight: var(--fw-bold);
-    font-style: italic;
     color: var(--color-text);
     margin-bottom: var(--space-sm);
     line-height: var(--lh-tight);

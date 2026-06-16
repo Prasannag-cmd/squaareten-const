@@ -91,7 +91,6 @@
 
 .carousel__slide-title {
   font-family: var(--font-heading);
-  font-style: italic;
   font-size: var(--fs-h3);
   font-weight: var(--fw-bold);
   color: var(--color-text);

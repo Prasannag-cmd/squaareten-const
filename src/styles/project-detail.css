@@ -104,7 +104,6 @@
   font-family: var(--font-heading);
   font-size: clamp(2.5rem, 5vw, 4rem);
   font-weight: var(--fw-bold);
-  font-style: italic;
   color: #FFFFFF;
   line-height: var(--lh-tight);
   margin-bottom: var(--space-md);
@@ -170,7 +169,6 @@
   font-family: var(--font-heading);
   font-size: var(--fs-h2);
   font-weight: var(--fw-bold);
-  font-style: italic;
   color: var(--color-text);
   margin-bottom: var(--space-xl);
 }
@@ -407,7 +405,6 @@
   font-family: var(--font-heading);
   font-size: var(--fs-h2);
   font-weight: var(--fw-bold);
-  font-style: italic;
   color: var(--color-text);
   margin-bottom: var(--space-lg);
 }
