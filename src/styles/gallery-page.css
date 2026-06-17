@@ -233,7 +233,7 @@
 .gallery-project-card {
   display: flex;
   flex-direction: column;
-  background: rgba(18, 18, 18, 0.5);
+  background: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
   overflow: hidden;
@@ -410,7 +410,7 @@
   gap: var(--space-sm);
   flex-grow: 1;
   border-top: 1px solid var(--color-border);
-  background: linear-gradient(180deg, rgba(20,20,20,0.2) 0%, rgba(10,10,10,0.5) 100%);
+  background: transparent;
 }
 
 .gallery-project-card__header {
@@ -433,8 +433,8 @@
   border-radius: 4px;
   font-size: 10px;
   font-weight: var(--fw-bold);
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: var(--color-bg-alt);
+  border: 1px solid var(--color-border);
   color: var(--color-text-secondary);
 }
 
@@ -454,7 +454,7 @@
   font-family: var(--font-heading);
   font-size: clamp(1.25rem, 2.5vw, 1.6rem);
   font-weight: var(--fw-bold);
-  color: #FFFFFF;
+  color: var(--color-text);
   line-height: var(--lh-tight);
 }
 

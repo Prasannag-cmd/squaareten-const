@@ -19,6 +19,17 @@
   --luxury-ease: cubic-bezier(.22, 1, .36, 1);
 }
 
+html[data-theme="light"] {
+  --about-surface: linear-gradient(135deg, #ffffff 0%, #faf9f5 100%);
+  --about-surface-hover: linear-gradient(135deg, #faf9f5 0%, #f3f1e8 100%);
+  --about-border: rgba(206, 148, 67, 0.2);
+  --about-border-hover: rgba(206, 148, 67, 0.45);
+  --about-glass: rgba(255, 255, 255, 0.75);
+  --glass-highlight: inset 1px 1px 0px rgba(206, 148, 67, 0.05);
+  --glass-highlight-hover: inset 1px 1px 0px rgba(206, 148, 67, 0.1);
+}
+
+
 
 /* ── Noise Overlay ───────────────────────────────────── */
 .about-page::before {
@@ -711,7 +722,7 @@
 .journey-horizontal-container {
   position: relative;
   height: 800vh;
-  background: #050505;
+  background: var(--color-bg);
   overflow: visible;
 }
 
@@ -757,8 +768,8 @@
 .journey-overlay {
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at center, transparent 20%, #050505 100%),
-              linear-gradient(0deg, #050505 0%, transparent 40%, #050505 100%);
+  background: radial-gradient(circle at center, transparent 20%, var(--color-bg) 100%),
+              linear-gradient(0deg, var(--color-bg) 0%, transparent 40%, var(--color-bg) 100%);
   z-index: 1;
 }
 
@@ -1310,7 +1321,7 @@
 .why-us-container {
   position: relative;
   height: 200vh;
-  background: #050505;
+  background: var(--color-bg);
   overflow: visible;
 }
 
@@ -2101,3 +2112,40 @@
     max-width: 100%;
   }
 }
+
+/* ── Light Mode Specific Overrides for Pinned/Special Sections ── */
+html[data-theme="light"] .journey-slide__title {
+  color: var(--color-text);
+  text-shadow: none;
+}
+
+html[data-theme="light"] .journey-slide__desc {
+  color: var(--color-text-secondary);
+  text-shadow: none;
+}
+
+html[data-theme="light"] .stats-bg__light-rays,
+html[data-theme="light"] .stats-bg__rim-light {
+  mix-blend-mode: multiply;
+  opacity: 0.12;
+}
+
+html[data-theme="light"] .stat-slide__label {
+  color: var(--color-text);
+  text-shadow: none;
+}
+
+html[data-theme="light"] .journey__final-exit-bg {
+  background: var(--color-bg);
+}
+
+html[data-theme="light"] .exit-content__title {
+  color: var(--color-text);
+  text-shadow: none;
+}
+
+html[data-theme="light"] .exit-content__quote {
+  color: var(--color-text-secondary);
+  border-top-color: var(--color-border);
+}
+

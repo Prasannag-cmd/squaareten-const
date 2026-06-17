@@ -788,7 +788,7 @@
     flex: 0 0 420px;
     display: flex;
     flex-direction: column;
-    background: rgba(20, 20, 20, 0.4);
+    background: var(--color-surface);
     backdrop-filter: blur(10px);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-lg);
@@ -899,8 +899,8 @@
   /* Final Panel styling */
   .materials-panel--message {
     flex: 0 0 500px;
-    background: linear-gradient(135deg, #161616 0%, #0c0c0c 100%);
-    border-color: rgba(201, 169, 110, 0.25);
+    background: linear-gradient(135deg, var(--color-surface) 0%, var(--color-bg-alt) 100%);
+    border-color: var(--color-border);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -929,7 +929,7 @@
     font-family: var(--font-heading);
     font-size: var(--fs-h2);
     font-weight: var(--fw-bold);
-    color: #FFFFFF;
+    color: var(--color-text);
     margin-bottom: var(--space-lg);
     line-height: var(--lh-tight);
   }
@@ -1113,14 +1113,14 @@
   align-items: center;
   width: fit-content;
   margin: 0 auto var(--space-3xl);
-  background: rgba(15, 15, 15, 0.65);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: var(--color-bg-alt);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-full);
   padding: 4px;
   z-index: 10;
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  box-shadow: var(--shadow-md);
 }
 
 .projects-status-btn {
@@ -1142,7 +1142,7 @@
 }
 
 .projects-status-btn:hover {
-  color: #FFFFFF;
+  color: var(--color-text);
 }
 
 .projects-status-btn.is-active {
