@@ -3,126 +3,20 @@
    "Simplicity First. Motion Second."
    ============================================================ */
 import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import { projectsData } from '../data/projectsData';
 
 gsap.registerPlugin(ScrollTrigger);
 
-/* ── Project Data ────────────────────────────────────── */
-const projectsData = [
-  // Projects (Completed + Ongoing)
-  {
-    id: 'maha-groups-residence',
-    name: 'Maha groups - Residence',
-    location: 'Thathaneri, Madurai',
-    category: 'projects',
-    status: 'Completed',
-    img: '/assets/images/project-maha-1.jpg',
-    description: 'A premium contemporary double-story residential design combining horizontal wood-look accents, concrete textures, and custom geometric facade elements.',
-    area: '6,800 sq.ft',
-    year: '2026',
-  },
-  {
-    id: 'sunrise-residences',
-    name: 'Sunrise Residences',
-    location: 'Nagudi, Aranthangi',
-    category: 'projects',
-    status: 'Completed',
-    img: '/assets/images/project-nagudi-main.jpg',
-    description: 'Modern 2 BHK residential home featuring a spacious veranda, dedicated vehicle parking, and landscaped gardening space.',
-    area: '1,600 sq.ft',
-    year: '2024',
-  },
-  {
-    id: 'swimming-pool-mannadimangalam',
-    name: 'Swimming Pool at Mannadimangalam',
-    location: 'Mannadimangalam, Madurai',
-    category: 'projects',
-    status: 'Completed',
-    img: '/assets/images/pool-image-1.jpeg',
-    description: 'A premium concrete swimming pool construction featuring custom filtration, blue mosaic tile finishing, and integrated lighting.',
-    area: '1,200 sq.ft',
-    year: '2024',
-  },
-  {
-    id: 'heritage-revival',
-    name: 'Modern Duplex Residence',
-    location: 'Thanjavur, Tamil Nadu',
-    category: 'projects',
-    status: 'Completed',
-    img: '/assets/images/project-duplex-main.jpg',
-    description: 'A premium 3 BHK modern duplex residence featuring textured stone wall cladding, a spacious glass balcony, and bespoke interiors.',
-    area: '3,200 sq.ft',
-    year: '2024',
-  },
-  {
-    id: 'bonita-hair-skin-care',
-    name: 'Bonita Hair & Skin Care',
-    location: 'Madurai Bypass Road, Tamil Nadu',
-    category: 'projects',
-    status: 'Completed',
-    img: '/assets/images/bonita-image-1.jpeg',
-    description: 'A premium salon and wellness space designed and executed with modern interiors, elegant finishes, and a customer-focused experience.',
-    area: 'Multiple Outlets',
-    year: '2026',
-  },
-  {
-    id: 'thirupaalai-residence',
-    name: 'Thirupaalai Residence',
-    location: 'Thirupaalai, Madurai',
-    category: 'projects',
-    status: 'Ongoing',
-    img: '/assets/images/thirupaalai-image-1.jpeg',
-    description: 'A modern contemporary premium residential project under construction in Madurai featuring latest finishes and high-end architecture.',
-    progress: 45,
-    phase: 'Interior Finishing',
-    expectedCompletion: 'March 2027',
-  },
-  {
-    id: 'sandhaipettai-residence',
-    name: 'Sandhaipettai Residence',
-    location: 'Sandhaipettai, Madurai',
-    category: 'projects',
-    status: 'Completed',
-    img: '/assets/images/sandhaipettai-image-1.jpeg',
-    description: 'A premium residential project under construction in Madurai featuring modern architectural planning and engineering.',
-    area: '4,200 sq.ft',
-    year: '2026',
-  },
-  
-  {
-    id: 'mahatma-global-gateway',
-    name: 'Mahatma Global Gateway',
-    location: 'Madurai, Tamil Nadu',
-    category: 'projects',
-    status: 'Completed',
-    img: '/assets/images/school-image-1.jpeg',
-    description: 'Engineering consultancy and comprehensive interior work execution for Mahatma Global Gateway in Madurai.',
-    area: 'School Campus',
-    year: '2025',
-  },
-
-  // Available Plots
-  {
-    id: 'karuppiah-nagar',
-    name: 'Karuppiah Nagar',
-    location: 'Kovilpapakudi, Madurai',
-    category: 'plots',
-    status: 'Available Plot',
-    img: '/assets/images/hero-bg.png',
-    description: 'Premium DTCP-approved residential plots with 30 & 40 ft roads, underground drainage, and excellent connectivity to Madurai city.',
-    plotArea: '1,200 – 2,400 sq.ft',
-    approval: 'DTCP Approved',
-    price: 'Starting ₹15 Lakhs',
-  },
-];
-
 const categories = [
-  { id: 'projects', label: 'Projects' },
-  { id: 'plots', label: 'Available Plots' },
+  { id: 'residential', label: 'Residential' },
+  { id: 'interior', label: 'Interior' },
+  { id: 'commercial', label: 'Commercial' },
+  { id: 'plots', label: 'Plots' },
 ];
 
 const materialsData = [
@@ -190,7 +84,7 @@ const materialsData = [
 
 /* ── Location Pin SVG ────────────────────────────────── */
 const LocationPin = () => (
-  <svg viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round">
+  <svg viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round" style={{ width: '14px', height: '14px', fill: 'none', stroke: 'currentColor', strokeWidth: 2 }}>
     <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
     <circle cx="12" cy="10" r="3" />
   </svg>
@@ -198,7 +92,7 @@ const LocationPin = () => (
 
 /* ── Arrow SVG ───────────────────────────────────────── */
 const ArrowRight = () => (
-  <svg viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round">
+  <svg viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round" style={{ width: '16px', height: '16px', fill: 'none', stroke: 'currentColor', strokeWidth: 2 }}>
     <line x1="5" y1="12" x2="19" y2="12" />
     <polyline points="12 5 19 12 12 19" />
   </svg>
@@ -235,26 +129,28 @@ function LazyImage({ src, alt, className }) {
 }
 
 /* ── Project Card Component ──────────────────────────── */
-/* ── Project Card Component ──────────────────────────── */
-function ProjectCard({ project, index }) {
+function ProjectCard({ project }) {
   const navigate = useNavigate();
   const cardRef = useRef(null);
 
-  const statusClass = {
-    'Completed': 'completed',
-    'Ongoing': 'ongoing',
-    'Available House': 'house',
-    'Available Plot': 'plot',
-  }[project.status] || 'plot';
+  const statusClass = project.status.toLowerCase();
+
+  const handleCardClick = () => {
+    if (project.id === 'karuppiah-nagar') {
+      navigate('/projects/karuppiah-nagar');
+    } else {
+      navigate(`/projects/${project.category}/${project.id}`);
+    }
+  };
 
   return (
     <article
       ref={cardRef}
       className="project-card"
-      onClick={() => navigate(`/projects/${project.id}`)}
+      onClick={handleCardClick}
       role="button"
       tabIndex={0}
-      onKeyDown={(e) => e.key === 'Enter' && navigate(`/projects/${project.id}`)}
+      onKeyDown={(e) => e.key === 'Enter' && handleCardClick()}
     >
       {/* Top: Image Container */}
       <div className="project-card__image-wrap">
@@ -272,7 +168,7 @@ function ProjectCard({ project, index }) {
       {/* Middle: Project Information */}
       <div className="project-card__body">
         <div className="project-card__category">
-          {categories.find(c => c.id === project.category)?.label || project.category}
+          {project.category}
         </div>
         <h3 className="project-card__name">{project.name}</h3>
         
@@ -283,67 +179,58 @@ function ProjectCard({ project, index }) {
 
         {/* Special Metadata Section */}
         <div className="project-card__special-meta">
-          {project.status === 'Completed' && (
+          {project.category === 'plots' ? (
             <>
               <div className="project-card__special-meta-item">
                 <span className="project-card__special-meta-label">Area</span>
                 <span className="project-card__special-meta-value">{project.area}</span>
               </div>
-              <div className="project-card__special-meta-item">
-                <span className="project-card__special-meta-label">Year Completed</span>
-                <span className="project-card__special-meta-value">{project.year}</span>
-              </div>
-            </>
-          )}
-
-          {project.status === 'Ongoing' && (
-            <>
-              <div className="project-card__special-meta-item">
-                <span className="project-card__special-meta-label">Progress</span>
-                <span className="project-card__special-meta-value text-gold">{project.progress}% Complete</span>
-              </div>
-              <div className="project-card__special-meta-item">
-                <span className="project-card__special-meta-label">Current Phase</span>
-                <span className="project-card__special-meta-value">{project.phase}</span>
-              </div>
-              <div className="project-card__special-meta-item">
-                <span className="project-card__special-meta-label">Expected Completion</span>
-                <span className="project-card__special-meta-value">{project.expectedCompletion}</span>
-              </div>
-            </>
-          )}
-
-          {project.status === 'Available House' && (
-            <>
               <div className="project-card__special-meta-item">
                 <span className="project-card__special-meta-label">Price</span>
                 <span className="project-card__special-meta-value text-gold">{project.price}</span>
               </div>
               <div className="project-card__special-meta-item">
-                <span className="project-card__special-meta-label">Area</span>
-                <span className="project-card__special-meta-value">{project.area}</span>
-              </div>
-              <div className="project-card__special-meta-item">
-                <span className="project-card__special-meta-label">Bedrooms</span>
-                <span className="project-card__special-meta-value">{project.bedrooms}</span>
-              </div>
-            </>
-          )}
-
-          {project.status === 'Available Plot' && (
-            <>
-              <div className="project-card__special-meta-item">
-                <span className="project-card__special-meta-label">Area</span>
-                <span className="project-card__special-meta-value">{project.plotArea}</span>
-              </div>
-              <div className="project-card__special-meta-item">
                 <span className="project-card__special-meta-label">Approval</span>
                 <span className="project-card__special-meta-value">{project.approval}</span>
               </div>
-              <div className="project-card__special-meta-item">
-                <span className="project-card__special-meta-label">Availability</span>
-                <span className="project-card__special-meta-value text-gold">Available</span>
-              </div>
+            </>
+          ) : (
+            <>
+              {project.status === 'Completed' ? (
+                <>
+                  <div className="project-card__special-meta-item">
+                    <span className="project-card__special-meta-label">Area</span>
+                    <span className="project-card__special-meta-value">{project.area}</span>
+                  </div>
+                  {project.year && (
+                    <div className="project-card__special-meta-item">
+                      <span className="project-card__special-meta-label">Year Completed</span>
+                      <span className="project-card__special-meta-value">{project.year}</span>
+                    </div>
+                  )}
+                </>
+              ) : (
+                <>
+                  {project.progress && (
+                    <div className="project-card__special-meta-item">
+                      <span className="project-card__special-meta-label">Progress</span>
+                      <span className="project-card__special-meta-value text-gold">{project.progress}% Complete</span>
+                    </div>
+                  )}
+                  {project.phase && (
+                    <div className="project-card__special-meta-item">
+                      <span className="project-card__special-meta-label">Current Phase</span>
+                      <span className="project-card__special-meta-value">{project.phase}</span>
+                    </div>
+                  )}
+                  {project.expectedCompletion && (
+                    <div className="project-card__special-meta-item">
+                      <span className="project-card__special-meta-label">Expected Completion</span>
+                      <span className="project-card__special-meta-value">{project.expectedCompletion}</span>
+                    </div>
+                  )}
+                </>
+              )}
             </>
           )}
         </div>
@@ -364,7 +251,12 @@ function ProjectCard({ project, index }) {
 
 /* ── Main Page Component ─────────────────────────────── */
 export default function ProjectsPage() {
-  const [activeCategory, setActiveCategory] = useState('projects');
+  const { category } = useParams();
+  const navigate = useNavigate();
+  const activeCategory = category || 'residential';
+
+  const [activeStatus, setActiveStatus] = useState('Completed');
+
   const heroRef = useRef(null);
   const categoriesRef = useRef(null);
   const explorerRef = useRef(null);
@@ -380,11 +272,36 @@ export default function ProjectsPage() {
     [activeCategory]
   );
 
-  // Scroll to top on mount
+  const completedProjects = useMemo(
+    () => filteredProjects.filter(p => p.status === 'Completed'),
+    [filteredProjects]
+  );
+
+  const ongoingProjects = useMemo(
+    () => filteredProjects.filter(p => p.status === 'Ongoing'),
+    [filteredProjects]
+  );
+
+  const isInitialMount = useRef(true);
+
+  // Scroll to categories on category change, scroll to top on first mount
   useEffect(() => {
-    window.scrollTo(0, 0);
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+      window.scrollTo(0, 0);
+    } else {
+      if (categoriesRef.current) {
+        const offset = 80; // Navbar offset
+        const top = categoriesRef.current.getBoundingClientRect().top + window.scrollY - offset;
+        if (window.lenis) {
+          window.lenis.scrollTo(top, { duration: 1.2 });
+        } else {
+          window.scrollTo({ top, behavior: 'smooth' });
+        }
+      }
+    }
     document.documentElement.classList.remove('is-loading');
-  }, []);
+  }, [activeCategory]);
 
   // ── Hero animations (on mount) ───────────────────────
   useEffect(() => {
@@ -480,29 +397,31 @@ export default function ProjectsPage() {
     if (!explorerRef.current) return;
 
     const explorerEl = explorerRef.current;
-    const cards = explorerEl.querySelectorAll('.project-card');
+    const sections = explorerEl.querySelectorAll('.projects-section');
 
     const ctx = gsap.context(() => {
-      // 1. Entrance staggered fade-in animation
-      if (cards.length) {
-        gsap.fromTo(cards,
-          { opacity: 0, y: 25 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.8,
-            stagger: 0.1,
-            ease: 'power2.out',
-            scrollTrigger: {
-              trigger: '.projects-grid',
-              start: 'top 85%',
-              toggleActions: 'play none none none',
-            },
-          }
-        );
-      }
+      sections.forEach(sec => {
+        const cards = sec.querySelectorAll('.project-card');
+        if (cards.length) {
+          gsap.fromTo(cards,
+            { opacity: 0, y: 25 },
+            {
+              opacity: 1,
+              y: 0,
+              duration: 0.8,
+              stagger: 0.1,
+              ease: 'power2.out',
+              scrollTrigger: {
+                trigger: sec,
+                start: 'top 85%',
+                toggleActions: 'play none none none',
+              },
+            }
+          );
+        }
+      });
 
-      // 2. Futuristic blueprint grid parallax scroll
+      // Futuristic blueprint grid parallax scroll
       gsap.to('.projects-explorer__blueprint-grid', {
         backgroundPositionY: '120px',
         ease: 'none',
@@ -516,7 +435,7 @@ export default function ProjectsPage() {
     }, explorerEl);
 
     return () => ctx.revert();
-  }, [activeCategory]);
+  }, [activeCategory, activeStatus]);
 
   // ── CTA scroll reveal ────────────────────────────────
   useEffect(() => {
@@ -539,6 +458,7 @@ export default function ProjectsPage() {
       );
     }, ctaRef.current);
 
+    return () => ctx.revert();
   }, []);
 
   // ── Materials Showcase scroll animation ────────────────
@@ -614,8 +534,8 @@ export default function ProjectsPage() {
   // ── Category switch handler ──────────────────────────
   const handleCategoryChange = useCallback((categoryId) => {
     if (categoryId === activeCategory) return;
-    setActiveCategory(categoryId);
-  }, [activeCategory]);
+    navigate(`/projects/${categoryId}`);
+  }, [activeCategory, navigate]);
 
   // ── Scroll to explorer ───────────────────────────────
   const scrollToExplorer = useCallback(() => {
@@ -625,8 +545,6 @@ export default function ProjectsPage() {
       window.lenis?.scrollTo(top, { duration: 1.2 });
     }
   }, []);
-
-
 
   return (
     <div className="projects-page app-layout is-ready">
@@ -645,7 +563,7 @@ export default function ProjectsPage() {
           <div className="projects-hero__overlay" />
 
           <div className="projects-hero__content">
-            <div className="projects-hero__label">Our Projects</div>
+            <div className="projects-hero__label">Our Portfolio</div>
             <h1 className="projects-hero__heading">
               Spaces Built With Purpose
             </h1>
@@ -691,37 +609,94 @@ export default function ProjectsPage() {
         {/* ── SECTION 03: Project Explorer ──────────────── */}
         <section className="projects-explorer" ref={explorerRef}>
           <div className="projects-explorer__blueprint-grid" />
-          <div className="projects-explorer__header">
-            <div>
-              <span className="section__label">Browse Projects</span>
-              <h2 className="section__title" style={{ marginBottom: 0 }}>
-                {categories.find(c => c.id === activeCategory)?.label}
-              </h2>
-            </div>
-            <div className="projects-explorer__count">
-              Showing <span>{filteredProjects.length}</span> project{filteredProjects.length !== 1 ? 's' : ''}
-            </div>
-          </div>
 
-          <div className="projects-grid" key={activeCategory}>
-            {filteredProjects.length > 0 ? (
-              filteredProjects.map((project, index) => (
-                <ProjectCard
-                  key={project.id}
-                  project={project}
-                  index={index}
-                />
-              ))
-            ) : (
-              <div className="projects-empty">
-                <div className="projects-empty__icon">🏗️</div>
-                <h3 className="projects-empty__heading">Coming Soon</h3>
-                <p className="projects-empty__text">
-                  New projects in this category will be available shortly.
-                </p>
-              </div>
-            )}
+          {/* Premium Status Switcher (Left/Right sliding pill) */}
+          <div className={`projects-status-switcher ${activeStatus === 'Ongoing' ? 'is-ongoing' : ''}`}>
+            <div className="projects-status-switcher__slider" />
+            <button
+              className={`projects-status-btn ${activeStatus === 'Completed' ? 'is-active' : ''}`}
+              onClick={() => setActiveStatus('Completed')}
+            >
+              Completed
+            </button>
+            <button
+              className={`projects-status-btn ${activeStatus === 'Ongoing' ? 'is-active' : ''}`}
+              onClick={() => setActiveStatus('Ongoing')}
+            >
+              Ongoing
+            </button>
           </div>
+          
+          {/* Conditional Rendering of Projects */}
+          {activeStatus === 'Completed' ? (
+            <div className="projects-section">
+              <div className="projects-explorer__header">
+                <div>
+                  <span className="section__label">Finished Work</span>
+                  <h2 className="section__title" style={{ marginBottom: 0 }}>
+                    Completed {activeCategory === 'plots' ? 'Plots' : 'Projects'}
+                  </h2>
+                </div>
+                <div className="projects-explorer__count">
+                  Showing <span>{completedProjects.length}</span> {activeCategory === 'plots' ? 'plot' : 'project'}{completedProjects.length !== 1 ? 's' : ''}
+                </div>
+              </div>
+
+              <div className="projects-grid">
+                {completedProjects.length > 0 ? (
+                  completedProjects.map((project, index) => (
+                    <ProjectCard
+                      key={project.id}
+                      project={project}
+                      index={index}
+                    />
+                  ))
+                ) : (
+                  <div className="projects-empty">
+                    <div className="projects-empty__icon">🏗️</div>
+                    <h3 className="projects-empty__heading">Coming Soon</h3>
+                    <p className="projects-empty__text">
+                      Completed {activeCategory === 'plots' ? 'plots' : 'projects'} in this category will be listed here soon.
+                    </p>
+                  </div>
+                )}
+              </div>
+            </div>
+          ) : (
+            <div className="projects-section">
+              <div className="projects-explorer__header">
+                <div>
+                  <span className="section__label">Under Development</span>
+                  <h2 className="section__title" style={{ marginBottom: 0 }}>
+                    Ongoing {activeCategory === 'plots' ? 'Plots' : 'Projects'}
+                  </h2>
+                </div>
+                <div className="projects-explorer__count">
+                  Showing <span>{ongoingProjects.length}</span> {activeCategory === 'plots' ? 'plot' : 'project'}{ongoingProjects.length !== 1 ? 's' : ''}
+                </div>
+              </div>
+
+              <div className="projects-grid">
+                {ongoingProjects.length > 0 ? (
+                  ongoingProjects.map((project, index) => (
+                    <ProjectCard
+                      key={project.id}
+                      project={project}
+                      index={index}
+                    />
+                  ))
+                ) : (
+                  <div className="projects-empty">
+                    <div className="projects-empty__icon">🏗️</div>
+                    <h3 className="projects-empty__heading">Coming Soon</h3>
+                    <p className="projects-empty__text">
+                      Ongoing {activeCategory === 'plots' ? 'plots' : 'projects'} in this category will be listed here soon.
+                    </p>
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
         </section>
 
         {/* ── SECTION 03.5: Materials Showcase ──────────── */}

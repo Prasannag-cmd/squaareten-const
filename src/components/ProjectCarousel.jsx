@@ -1,42 +1,22 @@
 /* ============================================================
    PROJECT CAROUSEL — Auto-Playing Carousel with GSAP
    ============================================================ */
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { useCarousel } from '../hooks/useCarousel';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { projectsData } from '../data/projectsData';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const slides = [
-  {
-    id: 'maha-groups-residence',
-    img: '/assets/images/project-maha-1.jpg',
-    alt: 'Maha groups - Residence',
-    category: 'Residential',
-    title: 'Maha groups - Residence',
-    desc: 'A premium contemporary double-story residential design combining horizontal wood-look accents, concrete textures, and custom geometric facade elements.',
-  },
-  {
-    id: 'swimming-pool-mannadimangalam',
-    img: '/assets/images/pool-image-1.jpeg',
-    alt: 'Swimming Pool at Mannadimangalam',
-    category: 'Swimming Pool',
-    title: 'Swimming Pool at Mannadimangalam',
-    desc: 'A premium concrete swimming pool construction featuring custom filtration, blue mosaic tile finishing, and integrated lighting.',
-  },
-  {
-    id: 'karuppiah-nagar',
-    img: '/assets/images/hero-bg.png',
-    alt: 'Karuppiah Nagar Available Plots',
-    category: 'Plots',
-    title: 'Karuppiah Nagar',
-    desc: 'Premium DTCP-approved residential plots with 30 & 40 ft roads, underground drainage, and excellent connectivity to Madurai city.',
-  }
-];
-
 export default function ProjectCarousel() {
+  // Select specific featured projects from the unified database
+  const slides = useMemo(() => {
+    const featuredIds = ['maha-groups-residence', 'swimming-pool-mannadimangalam', 'karuppiah-nagar'];
+    return projectsData.filter(p => featuredIds.includes(p.id));
+  }, []);
+
   const {
     currentIndex,
     trackRef,
@@ -75,6 +55,13 @@ export default function ProjectCarousel() {
     return () => ctx.revert();
   }, []);
 
+  const getSlideLink = (slide) => {
+    if (slide.id === 'karuppiah-nagar') {
+      return '/projects/karuppiah-nagar';
+    }
+    return `/projects/${slide.category}/${slide.id}`;
+  };
+
   return (
     <section className="section projects" id="projects" ref={sectionRef}>
       <div className="container">
@@ -110,13 +97,13 @@ export default function ProjectCarousel() {
             onTouchEnd={onDragEnd}
           >
             {slides.map((slide, i) => (
-              <Link to={`/projects/${slide.id}`} className="carousel__slide" key={i} style={{ display: 'block' }}>
-                <img src={slide.img} alt={slide.alt} className="carousel__slide-image" />
+              <Link to={getSlideLink(slide)} className="carousel__slide" key={i} style={{ display: 'block' }}>
+                <img src={slide.img} alt={slide.name} className="carousel__slide-image" />
                 <div className="carousel__slide-overlay"></div>
                 <div className="carousel__slide-content">
-                  <div className="carousel__slide-category">{slide.category}</div>
-                  <h3 className="carousel__slide-title">{slide.title}</h3>
-                  <p className="carousel__slide-desc">{slide.desc}</p>
+                  <div className="carousel__slide-category">{slide.category.toUpperCase()}</div>
+                  <h3 className="carousel__slide-title">{slide.name}</h3>
+                  <p className="carousel__slide-desc">{slide.description}</p>
                 </div>
               </Link>
             ))}

@@ -39,6 +39,7 @@ export default function Testimonials() {
         <div className="testimonials__grid" ref={gridRef}>
           {testimonials.map((t, i) => (
             <div className="testimonial-card" key={i}>
+              <div className="testimonial-card__shine"></div>
               <div className="testimonial-card__stars">
                 {[...Array(5)].map((_, j) => (
                   <span className="testimonial-card__star" key={j}>★</span>

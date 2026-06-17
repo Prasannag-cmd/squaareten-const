@@ -9,7 +9,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 const stats = [
   { target: 10, suffix: '+', label: 'Years of Excellence' },
-  { target: 250, suffix: '+', label: 'Projects Completed' },
+  { target: 60, suffix: '+', label: 'Projects Completed' },
   { target: 180, suffix: '+', label: 'Happy Clients' },
   { target: 50, suffix: '+', label: 'Team Members' },
 ];
@@ -46,6 +46,7 @@ function StatItem({ target, suffix, label }) {
 
   return (
     <div className="stat-item" data-animate="fade-up">
+      <div className="stat-item__shine"></div>
       <div
         className="stat-item__number"
         ref={numberRef}
@@ -55,6 +56,7 @@ function StatItem({ target, suffix, label }) {
         0{suffix}
       </div>
       <div className="stat-item__label">{label}</div>
+      <div className="stat-item__glow-bar"></div>
     </div>
   );
 }

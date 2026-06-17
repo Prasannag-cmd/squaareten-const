@@ -8,7 +8,6 @@ import Footer from '../components/Footer';
 import HeroSection from '../components/HeroSection';
 import ProjectOverview from '../components/ProjectOverview';
 import MasterPlan from '../components/MasterPlan';
-import PlotsInventory from '../components/PlotsInventory';
 import LocationMap from '../components/LocationMap';
 import DocumentModal from '../components/DocumentModal';
 import CTASection from '../components/CTASection';
@@ -26,7 +25,6 @@ export default function KaruppiahNagarPage() {
         <HeroSection />
         <ProjectOverview />
         <MasterPlan />
-        <PlotsInventory />
         <LocationMap />
         <DocumentModal />
         <CTASection />

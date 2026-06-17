@@ -1,83 +1,10 @@
 /* ============================================================
    KARUPPIAH NAGAR — Hero Section
-   Fullscreen hero with particle canvas, GSAP animations
+   Fullscreen hero with GSAP animations
    ============================================================ */
 import React, { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import '../styles/karuppiah-nagar.css';
-
-/* ── Lightweight Canvas Particles ─────────────────────────── */
-function ParticleCanvas() {
-  const canvasRef = useRef(null);
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    let animId;
-    let particles = [];
-    const GOLD = 'rgba(201,169,110,';
-
-    const resize = () => {
-      canvas.width = canvas.offsetWidth * devicePixelRatio;
-      canvas.height = canvas.offsetHeight * devicePixelRatio;
-      ctx.scale(devicePixelRatio, devicePixelRatio);
-    };
-    resize();
-    window.addEventListener('resize', resize);
-
-    // Create particles
-    for (let i = 0; i < 50; i++) {
-      particles.push({
-        x: Math.random() * canvas.offsetWidth,
-        y: Math.random() * canvas.offsetHeight,
-        r: Math.random() * 2 + 0.5,
-        dx: (Math.random() - 0.5) * 0.4,
-        dy: (Math.random() - 0.5) * 0.4,
-        o: Math.random() * 0.4 + 0.1,
-      });
-    }
-
-    const draw = () => {
-      ctx.clearRect(0, 0, canvas.offsetWidth, canvas.offsetHeight);
-      particles.forEach((p) => {
-        p.x += p.dx;
-        p.y += p.dy;
-        if (p.x < 0 || p.x > canvas.offsetWidth) p.dx *= -1;
-        if (p.y < 0 || p.y > canvas.offsetHeight) p.dy *= -1;
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fillStyle = GOLD + p.o + ')';
-        ctx.fill();
-      });
-      // Draw connections
-      for (let i = 0; i < particles.length; i++) {
-        for (let j = i + 1; j < particles.length; j++) {
-          const dx = particles[i].x - particles[j].x;
-          const dy = particles[i].y - particles[j].y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < 150) {
-            ctx.beginPath();
-            ctx.moveTo(particles[i].x, particles[i].y);
-            ctx.lineTo(particles[j].x, particles[j].y);
-            ctx.strokeStyle = GOLD + (0.08 * (1 - dist / 150)) + ')';
-            ctx.lineWidth = 0.5;
-            ctx.stroke();
-          }
-        }
-      }
-      animId = requestAnimationFrame(draw);
-    };
-    draw();
-
-    return () => {
-      cancelAnimationFrame(animId);
-      window.removeEventListener('resize', resize);
-    };
-  }, []);
-
-  return <canvas ref={canvasRef} className="kn-hero__particles" />;
-}
 
 export default function HeroSection() {
   const heroRef = useRef(null);
@@ -99,7 +26,6 @@ export default function HeroSection() {
 
   return (
     <section className="kn-hero" ref={heroRef}>
-      <ParticleCanvas />
       <div className="kn-hero__overlay" />
       <div className="kn-hero__content" ref={contentRef}>
         <span className="kn-hero__badge">✦ SQUARETEN CONSTRUCTIONS PVT LTD</span>

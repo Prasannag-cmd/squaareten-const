@@ -44,10 +44,8 @@ const statusColors = {
 };
 
 export default function MasterPlan() {
-  const [selectedPlot, setSelectedPlot] = useState(null);
-  const [hoveredPlot, setHoveredPlot] = useState(null);
-  const [filter, setFilter] = useState('all');
   const sectionRef = useRef(null);
+  const [isHovered, setIsHovered] = useState(false);
 
   useEffect(() => {
     gsap.fromTo(sectionRef.current,
@@ -59,134 +57,97 @@ export default function MasterPlan() {
     );
   }, []);
 
-  const filteredPlots = filter === 'all' ? plotData : plotData.filter(p => p.status === filter);
-  const activePlot = selectedPlot || hoveredPlot;
-
   return (
     <section className="kn-masterplan" id="kn-masterplan" ref={sectionRef}>
       <div className="kn-container">
         <div className="kn-section-header">
-          <span className="kn-section-tag">Interactive Layout</span>
-          <h2 className="kn-section-title">Master Plan</h2>
-          <p className="kn-section-desc">Click on any plot to view details. Use filters to find your perfect plot.</p>
+          <span className="kn-section-tag">Official Layout</span>
+          <h2 className="kn-section-title">Master Plan Brochure</h2>
+          <p className="kn-section-desc">Click the brochure image below to download the official high-resolution layout plan.</p>
         </div>
 
-        {/* Legend & Filters */}
-        <div className="kn-mp__controls">
-          <div className="kn-mp__legend">
-            {Object.entries(statusColors).map(([key, val]) => (
-              <div className="kn-mp__legend-item" key={key}>
-                <span className="kn-mp__legend-dot" style={{ background: val.stroke }} />
-                <span>{val.label}</span>
-              </div>
-            ))}
-          </div>
-          <div className="kn-mp__filters">
-            {['all', 'available', 'sold', 'reserved'].map(f => (
-              <button
-                key={f}
-                className={`kn-mp__filter-btn ${filter === f ? 'active' : ''}`}
-                onClick={() => setFilter(f)}
+        <div className="kn-mp__wrapper" style={{ display: 'block' }}>
+          <div 
+            className="kn-mp__flyer-container" 
+            style={{ 
+              width: '100%', 
+              maxWidth: '900px', 
+              margin: '0 auto', 
+              borderRadius: '16px', 
+              overflow: 'hidden', 
+              border: '1px solid rgba(201,169,110,0.25)', 
+              boxShadow: '0 12px 40px rgba(0,0,0,0.6)', 
+              background: '#111', 
+              padding: '12px' 
+            }}
+          >
+            <a 
+              href="/assets/images/karuppiah-nagar-layout.jpg" 
+              download="Karuppiah_Nagar_Layout_Brochure.jpg"
+              style={{ display: 'block', position: 'relative', cursor: 'pointer', overflow: 'hidden', borderRadius: '10px' }}
+              onMouseEnter={() => setIsHovered(true)}
+              onMouseLeave={() => setIsHovered(false)}
+            >
+              <img 
+                src="/assets/images/karuppiah-nagar-layout.jpg" 
+                alt="Karuppiah Nagar Layout Map Brochure" 
+                style={{ 
+                  width: '100%', 
+                  height: 'auto', 
+                  display: 'block', 
+                  borderRadius: '10px',
+                  transition: 'transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)',
+                  transform: isHovered ? 'scale(1.02)' : 'scale(1)'
+                }} 
+              />
+              <div 
+                className="kn-mp__download-overlay"
+                style={{
+                  position: 'absolute',
+                  inset: 0,
+                  background: 'rgba(10, 10, 10, 0.45)',
+                  backdropFilter: 'blur(6px)',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  opacity: isHovered ? 1 : 0,
+                  transition: 'opacity 0.4s ease',
+                  color: 'var(--color-accent)',
+                  gap: '15px'
+                }}
               >
-                {f === 'all' ? 'All Plots' : statusColors[f]?.label || f}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        <div className="kn-mp__wrapper">
-          {/* SVG Map */}
-          <div className="kn-mp__map-container">
-            <svg viewBox="0 0 100 100" className="kn-mp__svg" preserveAspectRatio="xMidYMid meet">
-              {/* Background */}
-              <rect x="0" y="0" width="100" height="100" fill="var(--color-bg-alt)" rx="1" />
-              
-              {/* Roads */}
-              <rect x="0" y="27" width="100" height="4" fill="rgba(201,169,110,0.08)" />
-              <text x="50" y="29.5" textAnchor="middle" fill="rgba(201,169,110,0.3)" fontSize="1.2" fontFamily="var(--font-sans)">40 FT ROAD</text>
-              
-              <rect x="0" y="51" width="100" height="4" fill="rgba(201,169,110,0.08)" />
-              <text x="50" y="53.5" textAnchor="middle" fill="rgba(201,169,110,0.3)" fontSize="1.2" fontFamily="var(--font-sans)">30 FT ROAD</text>
-              
-              <rect x="0" y="75" width="100" height="2" fill="rgba(201,169,110,0.06)" />
-              <text x="50" y="76.5" textAnchor="middle" fill="rgba(201,169,110,0.2)" fontSize="1" fontFamily="var(--font-sans)">30 FT ROAD</text>
-
-              {/* Title */}
-              <text x="50" y="4" textAnchor="middle" fill="var(--color-accent)" fontSize="2.5" fontFamily="var(--font-heading)" fontWeight="600">
-                KARUPPIAH NAGAR — LAYOUT
-              </text>
-
-              {/* Plot blocks */}
-              {plotData.map((plot) => {
-                const colors = statusColors[plot.status];
-                const isActive = activePlot?.id === plot.id;
-                const isFiltered = filter !== 'all' && plot.status !== filter;
-                return (
-                  <g
-                    key={plot.id}
-                    className="kn-mp__plot"
-                    style={{ cursor: plot.status !== 'sold' ? 'pointer' : 'not-allowed', opacity: isFiltered ? 0.15 : 1 }}
-                    onClick={() => plot.status !== 'sold' && setSelectedPlot(selectedPlot?.id === plot.id ? null : plot)}
-                    onMouseEnter={() => setHoveredPlot(plot)}
-                    onMouseLeave={() => setHoveredPlot(null)}
-                  >
-                    <rect
-                      x={plot.x} y={plot.y} width={plot.w} height={plot.h}
-                      fill={isActive ? colors.stroke.replace(')', ',0.4)').replace('rgb', 'rgba') : colors.fill}
-                      stroke={colors.stroke}
-                      strokeWidth={isActive ? 0.6 : 0.3}
-                      rx="0.5"
-                      style={{ transition: 'all 0.3s ease' }}
-                    />
-                    <text
-                      x={plot.x + plot.w / 2} y={plot.y + plot.h / 2 - 1.5}
-                      textAnchor="middle" fill="var(--color-text)" fontSize="1.8"
-                      fontFamily="var(--font-sans)" fontWeight="600"
-                    >
-                      {plot.id}
-                    </text>
-                    <text
-                      x={plot.x + plot.w / 2} y={plot.y + plot.h / 2 + 2}
-                      textAnchor="middle" fill="var(--color-text-secondary)" fontSize="0.9"
-                      fontFamily="var(--font-sans)"
-                    >
-                      {plot.area}
-                    </text>
-                  </g>
-                );
-              })}
-            </svg>
-          </div>
-
-          {/* Detail Panel */}
-          <div className={`kn-mp__detail ${activePlot ? 'visible' : ''}`}>
-            {activePlot ? (
-              <>
-                <div className="kn-mp__detail-header">
-                  <span className="kn-mp__detail-badge" style={{ color: statusColors[activePlot.status].stroke }}>
-                    {statusColors[activePlot.status].label}
-                  </span>
-                  <h3 className="kn-mp__detail-title">Plot #{activePlot.id}</h3>
+                <div style={{
+                  width: '72px',
+                  height: '72px',
+                  borderRadius: '50%',
+                  background: 'rgba(201, 169, 110, 0.15)',
+                  border: '1px solid var(--color-accent)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  boxShadow: '0 0 25px rgba(201, 169, 110, 0.35)',
+                  transition: 'transform 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
+                  transform: isHovered ? 'scale(1.1)' : 'scale(0.9)'
+                }}>
+                  <svg viewBox="0 0 24 24" style={{ width: '36px', height: '36px', fill: 'none', stroke: 'currentColor', strokeWidth: 2, strokeLinecap: 'round', strokeLinejoin: 'round' }}>
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                    <polyline points="7 10 12 15 17 10" />
+                    <line x1="12" y1="15" x2="12" y2="3" />
+                  </svg>
                 </div>
-                <div className="kn-mp__detail-grid">
-                  <div className="kn-mp__detail-item"><span>Area</span><strong>{activePlot.area}</strong></div>
-                  <div className="kn-mp__detail-item"><span>Facing</span><strong>{activePlot.facing}</strong></div>
-                  <div className="kn-mp__detail-item"><span>Price</span><strong>{activePlot.price}</strong></div>
-                  <div className="kn-mp__detail-item"><span>Status</span><strong>{statusColors[activePlot.status].label}</strong></div>
-                </div>
-                {activePlot.status === 'available' && (
-                  <a href={`https://wa.me/919150765025?text=I'm interested in Plot %23${activePlot.id} at Karuppiah Nagar (${activePlot.area})`}
-                    className="kn-btn kn-btn--primary kn-mp__detail-cta" target="_blank" rel="noopener noreferrer">
-                    Enquire on WhatsApp
-                  </a>
-                )}
-              </>
-            ) : (
-              <div className="kn-mp__detail-empty">
-                <span className="kn-mp__detail-empty-icon">👆</span>
-                <p>Select a plot on the map to view details</p>
+                <span style={{ 
+                  fontFamily: 'var(--font-sans)', 
+                  fontSize: '13px', 
+                  fontWeight: '700', 
+                  letterSpacing: '2px', 
+                  textTransform: 'uppercase',
+                  textShadow: '0 2px 4px rgba(0,0,0,0.5)' 
+                }}>
+                  Click to Download Brochure
+                </span>
               </div>
-            )}
+            </a>
           </div>
         </div>
       </div>

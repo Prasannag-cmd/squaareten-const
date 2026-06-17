@@ -5,6 +5,26 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import gsap from 'gsap';
 
+const SunIcon = () => (
+  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="theme-toggle-icon">
+    <circle cx="12" cy="12" r="5" />
+    <line x1="12" y1="1" x2="12" y2="3" />
+    <line x1="12" y1="21" x2="12" y2="23" />
+    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+    <line x1="1" y1="12" x2="3" y2="12" />
+    <line x1="21" y1="12" x2="23" y2="12" />
+    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+  </svg>
+);
+
+const MoonIcon = () => (
+  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="theme-toggle-icon">
+    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+  </svg>
+);
+
 
 export default function Navbar({ isVisible = false, alwaysScrolled = false }) {
   const [isScrolled, setIsScrolled] = useState(alwaysScrolled);
@@ -18,6 +38,21 @@ export default function Navbar({ isVisible = false, alwaysScrolled = false }) {
   const isHomePage = location.pathname === '/' || location.pathname === '/index.html';
   const isAboutPage = location.pathname === '/about';
   const isCareersPage = location.pathname === '/careers';
+
+  const [theme, setTheme] = useState(() => {
+    const saved = localStorage.getItem('theme');
+    if (saved) return saved;
+    return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+  });
+
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('theme', theme);
+  }, [theme]);
+
+  const toggleTheme = useCallback(() => {
+    setTheme(prev => (prev === 'dark' ? 'light' : 'dark'));
+  }, []);
 
   // Navbar show animation
   useEffect(() => {
@@ -68,6 +103,8 @@ export default function Navbar({ isVisible = false, alwaysScrolled = false }) {
   }, [isHomePage]);
 
   // Mobile menu toggle
+  const [mobileProjectsOpen, setMobileProjectsOpen] = useState(false);
+
   const toggleMobile = useCallback(() => {
     setMobileOpen(prev => {
       const willOpen = !prev;
@@ -79,12 +116,13 @@ export default function Navbar({ isVisible = false, alwaysScrolled = false }) {
           if (links.length) {
             gsap.fromTo(links,
               { opacity: 0, y: 30 },
-              { opacity: 1, y: 0, duration: 0.5, stagger: 0.08, ease: 'expo.out', delay: 0.15 }
+              { opacity: 1, y: 0, duration: 0.5, stagger: 0.06, ease: 'expo.out', delay: 0.15 }
             );
           }
         }, 0);
       } else {
         document.body.style.overflow = '';
+        setMobileProjectsOpen(false);
       }
       return willOpen;
     });
@@ -92,6 +130,7 @@ export default function Navbar({ isVisible = false, alwaysScrolled = false }) {
 
   const closeMobile = useCallback(() => {
     setMobileOpen(false);
+    setMobileProjectsOpen(false);
     document.body.style.overflow = '';
   }, []);
 
@@ -102,34 +141,54 @@ export default function Navbar({ isVisible = false, alwaysScrolled = false }) {
     isHidden ? 'is-hidden' : '',
   ].filter(Boolean).join(' ');
 
-  const homePrefix = isHomePage ? '' : '/';
-
   return (
     <>
       <nav className={navClasses} id="navbar" ref={navbarRef}>
         <div className="container navbar__inner">
           <Link to="/" className="navbar__logo">
-            <img src="/assets/images/logo.png" alt="Squaareten Construction" className="navbar__logo-img" />
+            <img src="/assets/images/logo.png" alt="Squaareten Constructions" className="navbar__logo-img" />
             <div className="navbar__logo-text">
               Squaareten
-              <span>Construction</span>
+              <span>Constructions</span>
             </div>
           </Link>
 
           <div className="navbar__links">
             {isHomePage ? (
               <>
+                <a href="#hero" className={`navbar__link ${activeSection === 'hero' || activeSection === '' ? 'is-active' : ''}`}>Home</a>
                 <Link to="/about" className="navbar__link">About</Link>
-                <a href="#services" className={`navbar__link ${activeSection === 'services' ? 'is-active' : ''}`}>Services</a>
-                <Link to="/projects" className="navbar__link">Projects</Link>
+                <div className="navbar__dropdown">
+                  <Link to="/projects/residential" className={`navbar__link navbar__dropdown-trigger ${location.pathname.startsWith('/projects') ? 'is-active' : ''}`}>
+                    Projects <span className="navbar__dropdown-arrow">▼</span>
+                  </Link>
+                  <div className="navbar__dropdown-menu">
+                    <Link to="/projects/residential" className="navbar__dropdown-item">Residential</Link>
+                    <Link to="/projects/interior" className="navbar__dropdown-item">Interior</Link>
+                    <Link to="/projects/commercial" className="navbar__dropdown-item">Commercial</Link>
+                    <Link to="/projects/plots" className="navbar__dropdown-item">Plots</Link>
+                  </div>
+                </div>
+                <Link to="/gallery" className={`navbar__link ${location.pathname === '/gallery' ? 'is-active' : ''}`}>Gallery</Link>
                 <Link to="/careers" className="navbar__link">Careers</Link>
                 <a href="#contact" className={`navbar__link ${activeSection === 'contact' ? 'is-active' : ''}`}>Contact</a>
               </>
             ) : (
               <>
+                <Link to="/" className="navbar__link">Home</Link>
                 <Link to="/about" className={`navbar__link ${isAboutPage ? 'is-active' : ''}`}>About</Link>
-                <Link to="/#services" className="navbar__link">Services</Link>
-                <Link to="/projects" className={`navbar__link ${location.pathname === '/projects' ? 'is-active' : ''}`}>Projects</Link>
+                <div className="navbar__dropdown">
+                  <Link to="/projects/residential" className={`navbar__link navbar__dropdown-trigger ${location.pathname.startsWith('/projects') ? 'is-active' : ''}`}>
+                    Projects <span className="navbar__dropdown-arrow">▼</span>
+                  </Link>
+                  <div className="navbar__dropdown-menu">
+                    <Link to="/projects/residential" className="navbar__dropdown-item">Residential</Link>
+                    <Link to="/projects/interior" className="navbar__dropdown-item">Interior</Link>
+                    <Link to="/projects/commercial" className="navbar__dropdown-item">Commercial</Link>
+                    <Link to="/projects/plots" className="navbar__dropdown-item">Plots</Link>
+                  </div>
+                </div>
+                <Link to="/gallery" className={`navbar__link ${location.pathname === '/gallery' ? 'is-active' : ''}`}>Gallery</Link>
                 <Link to="/careers" className={`navbar__link ${isCareersPage ? 'is-active' : ''}`}>Careers</Link>
                 <Link to="/#contact" className="navbar__link">Contact</Link>
               </>
@@ -137,11 +196,41 @@ export default function Navbar({ isVisible = false, alwaysScrolled = false }) {
           </div>
 
           <div className="navbar__actions">
-            {isHomePage ? (
-              <a href="#contact" className="navbar__cta">Get Quote</a>
-            ) : (
-              <Link to="/#contact" className="navbar__cta">Get Quote</Link>
-            )}
+            <div className="navbar__socials">
+              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="navbar__social-link" aria-label="Facebook">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                  <path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c4.56-.93 8-4.96 8-9.75z"/>
+                </svg>
+              </a>
+              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="navbar__social-link" aria-label="Instagram">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+                  <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+                </svg>
+              </a>
+              <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="navbar__social-link" aria-label="Twitter">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                  <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                </svg>
+              </a>
+            </div>
+            <button 
+              className="navbar__theme-toggle" 
+              onClick={toggleTheme} 
+              aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
+            >
+              {theme === 'dark' ? <SunIcon /> : <MoonIcon />}
+            </button>
+            <Link to="/consultation" className="navbar__cta-pill">
+              <span>Consultation</span>
+              <span className="navbar__cta-arrow">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <line x1="7" y1="17" x2="17" y2="7"/>
+                  <polyline points="7 7 17 7 17 17"/>
+                </svg>
+              </span>
+            </Link>
           </div>
 
           <button
@@ -159,21 +248,74 @@ export default function Navbar({ isVisible = false, alwaysScrolled = false }) {
       <div className={`navbar__mobile-menu ${mobileOpen ? 'is-open' : ''}`} ref={mobileLinksRef}>
         {isHomePage ? (
           <>
+            <a href="#hero" className="navbar__mobile-link" onClick={closeMobile}>Home</a>
             <Link to="/about" className="navbar__mobile-link" onClick={closeMobile}>About</Link>
-            <a href="#services" className="navbar__mobile-link" onClick={closeMobile}>Services</a>
-            <Link to="/projects" className="navbar__mobile-link" onClick={closeMobile}>Projects</Link>
+            <Link to="/consultation" className="navbar__mobile-link" onClick={closeMobile}>Consultation</Link>
+            
+            <div className="navbar__mobile-dropdown-wrapper">
+              <button 
+                className={`navbar__mobile-link navbar__mobile-link--parent ${location.pathname.startsWith('/projects') ? 'is-active' : ''}`}
+                onClick={() => setMobileProjectsOpen(!mobileProjectsOpen)}
+              >
+                Projects <span className={`submenu-arrow ${mobileProjectsOpen ? 'is-open' : ''}`}>▼</span>
+              </button>
+              <div className={`navbar__mobile-submenu ${mobileProjectsOpen ? 'is-open' : ''}`}>
+                <Link to="/projects/residential" className="navbar__mobile-link navbar__mobile-link--sub" onClick={closeMobile}>Residential</Link>
+                <Link to="/projects/interior" className="navbar__mobile-link navbar__mobile-link--sub" onClick={closeMobile}>Interior</Link>
+                <Link to="/projects/commercial" className="navbar__mobile-link navbar__mobile-link--sub" onClick={closeMobile}>Commercial</Link>
+                <Link to="/projects/plots" className="navbar__mobile-link navbar__mobile-link--sub" onClick={closeMobile}>Plots</Link>
+              </div>
+            </div>
+
+            <Link to="/gallery" className={`navbar__mobile-link ${location.pathname === '/gallery' ? 'is-active' : ''}`} onClick={closeMobile}>Gallery</Link>
             <Link to="/careers" className="navbar__mobile-link" onClick={closeMobile}>Careers</Link>
             <a href="#contact" className="navbar__mobile-link" onClick={closeMobile}>Contact</a>
           </>
         ) : (
           <>
+            <Link to="/" className="navbar__mobile-link" onClick={closeMobile}>Home</Link>
             <Link to="/about" className="navbar__mobile-link" onClick={closeMobile}>About</Link>
-            <Link to="/#services" className="navbar__mobile-link" onClick={closeMobile}>Services</Link>
-            <Link to="/projects" className="navbar__mobile-link" onClick={closeMobile}>Projects</Link>
+            <Link to="/consultation" className="navbar__mobile-link" onClick={closeMobile}>Consultation</Link>
+            
+            <div className="navbar__mobile-dropdown-wrapper">
+              <button 
+                className={`navbar__mobile-link navbar__mobile-link--parent ${location.pathname.startsWith('/projects') ? 'is-active' : ''}`}
+                onClick={() => setMobileProjectsOpen(!mobileProjectsOpen)}
+              >
+                Projects <span className={`submenu-arrow ${mobileProjectsOpen ? 'is-open' : ''}`}>▼</span>
+              </button>
+              <div className={`navbar__mobile-submenu ${mobileProjectsOpen ? 'is-open' : ''}`}>
+                <Link to="/projects/residential" className="navbar__mobile-link navbar__mobile-link--sub" onClick={closeMobile}>Residential</Link>
+                <Link to="/projects/interior" className="navbar__mobile-link navbar__mobile-link--sub" onClick={closeMobile}>Interior</Link>
+                <Link to="/projects/commercial" className="navbar__mobile-link navbar__mobile-link--sub" onClick={closeMobile}>Commercial</Link>
+                <Link to="/projects/plots" className="navbar__mobile-link navbar__mobile-link--sub" onClick={closeMobile}>Plots</Link>
+              </div>
+            </div>
+
+            <Link to="/gallery" className={`navbar__mobile-link ${location.pathname === '/gallery' ? 'is-active' : ''}`} onClick={closeMobile}>Gallery</Link>
             <Link to="/careers" className="navbar__mobile-link" onClick={closeMobile}>Careers</Link>
             <Link to="/#contact" className="navbar__mobile-link" onClick={closeMobile}>Contact</Link>
           </>
         )}
+        <div className="navbar__mobile-actions">
+          <button 
+            className="navbar__mobile-theme-toggle" 
+            onClick={toggleTheme} 
+            aria-label="Toggle Theme"
+          >
+            {theme === 'dark' ? (
+              <>
+                <SunIcon />
+                <span>Day Mode</span>
+              </>
+            ) : (
+              <>
+                <MoonIcon />
+                <span>Night Mode</span>
+              </>
+            )}
+          </button>
+        </div>
       </div>
     </>
   );

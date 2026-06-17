@@ -8,331 +8,9 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import { projectsData } from '../data/projectsData';
 
 gsap.registerPlugin(ScrollTrigger);
-
-/* ── All projects data (shared source of truth) ─────── */
-const allProjects = [
-  {
-    id: 'maha-groups-residence',
-    name: 'Maha groups - Residence',
-    location: 'Thathaneri, Madurai',
-    category: 'completed',
-    status: 'Completed',
-    img: '/assets/images/project-maha-1.jpg',
-    description: 'A premium contemporary double-story residential design combining horizontal wood-look accents, concrete textures, and custom geometric facade elements.',
-    area: '6,800 sq.ft',
-    year: '2026',
-    story: 'Maha groups Residence stands as a bold landmark of contemporary residential architecture in the Thathaneri area of Madurai. Designed as a luxury multi-family or grand single-family estate, the structure features a striking modern facade. The design merges natural wood grain panels with smooth concrete finishes and white architectural features. Highlighted by large glass windows, a structured front entrance, and custom metal work on the terrace, this home blends durability with an elite design aesthetic.',
-    gallery: [
-      '/assets/images/project-maha-1.jpg',
-      '/assets/images/project-maha-2.jpg'
-    ],
-    videos: [
-      '/assets/images/WhatsApp Video 2026-06-14 at 12.15.10.mp4',
-      '/assets/images/WhatsApp Video 2026-06-14 at 12.15.11 (1).mp4',
-      '/assets/images/WhatsApp Video 2026-06-14 at 12.15.11 (2).mp4',
-      '/assets/images/WhatsApp Video 2026-06-14 at 12.15.11.mp4',
-      '/assets/images/WhatsApp Video 2026-06-14 at 12.15.12 (1).mp4',
-      '/assets/images/WhatsApp Video 2026-06-14 at 12.15.12.mp4'
-    ],
-    features: [
-      'Contemporary Facade Design',
-      'Premium Wood-Look Accents',
-      'Spacious Balconies & Terraces',
-      'Structural Steel Elements',
-      'Bespoke Exterior Lighting',
-      'Landscaped Front Entry'
-    ],
-    mapUrl: 'https://www.google.com/maps/@9.9415931,78.1019086,3a,75y,82.61h,95.91t/data=!3m7!1e1!3m5!1stOhnT9qfmch8gVNKH1dBrg!2e0!6shttps:%2F%2Fstreetviewpixels-pa.googleapis.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D-5.90703917687037%26panoid%3DtOhnT9qfmch8gVNKH1dBrg%26yaw%3D82.60680081705755!7i16384!8i8192?entry=ttu&g_ep=EgoyMDI2MDYxMC4wIKXMDSoASAFQAw%3D%3D',
-  },
-  {
-    id: 'sunrise-residences',
-    name: 'Sunrise Residences',
-    location: 'Nagudi, Aranthangi',
-    category: 'completed',
-    status: 'Completed',
-    img: '/assets/images/project-nagudi-main.jpg',
-    description: 'Modern 2 BHK residential home featuring a spacious veranda, dedicated vehicle parking, and landscaped gardening space.',
-    area: '1,600 sq.ft',
-    year: '2024',
-    story: 'Sunrise Residences stands as a premium example of contemporary single-story home design. Featuring a spacious 2 BHK configuration (2 rooms, 1 kitchen, 1 hall), a welcoming veranda, dedicated vehicle parking, and landscaped gardening space, the home offers a perfect balance of comfort and modern aesthetics. The exterior combines textured stone cladding with warm horizontal wood-look panels and a sleek blue-grey canopy, creating a striking architectural statement in the Nagudi neighborhood.',
-    gallery: [
-      '/assets/images/project-nagudi-main.jpg',
-      '/assets/images/project-nagudi-2.jpg',
-      '/assets/images/project-nagudi-3.jpg'
-    ],
-    features: ['2 Spacious Bedrooms', 'Modern Kitchen & Hall', 'Welcoming Front Veranda', 'Dedicated Vehicle Parking', 'Landscaped Gardening Area', 'Premium Stone Cladding'],
-  },
-  {
-    id: 'swimming-pool-mannadimangalam',
-    name: 'Swimming Pool at Mannadimangalam',
-    location: 'Mannadimangalam, Madurai',
-    category: 'completed',
-    status: 'Completed',
-    img: '/assets/images/pool-image-1.jpeg',
-    description: 'A premium concrete swimming pool construction featuring custom filtration, blue mosaic tile finishing, and integrated lighting.',
-    area: '1,200 sq.ft',
-    year: '2024',
-    story: 'Located in the scenic area of Mannadimangalam, this custom-built luxury swimming pool project is designed as a private backyard oasis. Constructed with high-durability structural concrete and finished with premium mosaic tiles, the pool features a state-of-the-art multi-stage filtration system, energy-efficient underwater LED illumination, and a modern perimeter drainage deck. The design prioritizes both safety and sophisticated styling, integrating seamlessly with the surrounding landscape to create a stunning leisure area.',
-    gallery: [
-      '/assets/images/pool-image-1.jpeg',
-      '/assets/images/pool-image-2.jpeg',
-      '/assets/images/pool-image-3.jpeg',
-      '/assets/images/pool-image-4.jpeg',
-      '/assets/images/pool-image-5.jpeg',
-      '/assets/images/pool-image-6.jpeg'
-    ],
-    videos: [
-      '/assets/images/pool-video-1.mp4',
-      '/assets/images/pool-video-2.mp4',
-      '/assets/images/pool-video-3.mp4'
-    ],
-    features: [
-      'Structural Concrete Build',
-      'Multi-Stage Filtration System',
-      'Premium Mosaic Tiling',
-      'Underwater LED Illumination',
-      'Anti-Slip Perimeter Deck',
-      'Bespoke Water Feature'
-    ],
-  },
-  {
-    id: 'heritage-revival',
-    name: 'Modern Duplex Residence',
-    location: 'Thanjavur, Tamil Nadu',
-    category: 'completed',
-    status: 'Completed',
-    img: '/assets/images/project-duplex-main.jpg',
-    description: 'A premium 3 BHK modern duplex residence featuring textured stone wall cladding, a spacious glass balcony, and bespoke interiors.',
-    area: '3,200 sq.ft',
-    year: '2024',
-    story: 'This premium modern duplex residence represents a perfect fusion of bold contemporary architecture and high-end interior styling. Spanning two levels, the home features a custom-designed facade with textured grey stone cladding and geometric plaster bands. Inside, the spaces are designed for luxury living, starting with a grand living room with polished marble flooring and a custom backlit TV unit. A stunning structural staircase with glass panel balustrades leads to the upper level under a custom pattern skylight that filters beautiful natural light. Complete with premium bathroom fixtures and modern modular storage throughout, the residence offers a refined urban sanctuary.',
-    gallery: [
-      '/assets/images/project-duplex-main.jpg',
-      '/assets/images/project-duplex-1.jpg',
-      '/assets/images/project-duplex-2.jpg',
-      '/assets/images/project-duplex-3.jpg',
-      '/assets/images/project-duplex-4.jpg'
-    ],
-    features: [
-      '3 Spacious Bedrooms',
-      'Textured Stone Facade',
-      'Glass Balustrade Balcony',
-      'Glass-Rail Structural Staircase',
-      'Backlit TV Unit Fretwork',
-      'Modern Bathroom Vanity'
-    ],
-  },
-  {
-    id: 'bonita-hair-skin-care',
-    name: 'Bonita Hair & Skin Care',
-    location: 'Madurai Bypass Road, Tamil Nadu',
-    category: 'completed',
-    status: 'Completed',
-    img: '/assets/images/bonita-image-1.jpeg',
-    description: 'A premium salon and wellness space designed and executed with modern interiors, elegant finishes, and a customer-focused experience.',
-    area: 'Multiple Outlets',
-    year: '2026',
-    story: 'Bonita Hair & Skin Care is one of our valued commercial clients in the beauty and wellness sector. We have successfully completed construction and interior works for several of their franchise locations, delivering premium-quality spaces that align with the brand\'s modern identity and customer experience standards.\n\nDue to the successful execution of previous outlets, we have also been entrusted with upcoming franchise projects, strengthening our long-term partnership with the Bonita brand. Each location is carefully designed to provide a welcoming, luxurious, and functional environment for clients while maintaining consistency across all franchise branches.',
-    gallery: [
-      '/assets/images/bonita-image-1.jpeg',
-      '/assets/images/bonita-image-2.jpeg',
-      '/assets/images/bonita-image-3.jpeg',
-      '/assets/images/bonita-image-4.jpeg',
-      '/assets/images/bonita-image-5.jpeg',
-      '/assets/images/bonita-image-6.jpeg',
-      '/assets/images/bonita-image-7.jpeg',
-      '/assets/images/bonita-image-8.jpeg',
-      '/assets/images/bonita-image-9.jpeg',
-      '/assets/images/bonita-image-10.jpeg'
-    ],
-    features: [
-      'Premium Salon Interiors',
-      'Modern Reception & Waiting Areas',
-      'Customized Interior Finishes',
-      'Brand-Focused Design Execution',
-      'Multi-Branch Franchise Development',
-      'Ongoing Expansion Projects'
-    ],
-    mapUrl: 'https://www.google.com/maps/place/BONITAA+SKIN+AND+HAIR+CARE/@9.9238552,78.0175391,13z/data=!4m10!1m2!2m1!1smap+bonita+bypass+madurai!3m6!1s0x3b00cfd1cca47ce9:0x12c89ce66c58650a!8m2!3d9.9238552!4d78.0937568!15sChltYXAgYm9uaXRhIGJ5cGFzcyBtYWR1cmFpWhciFWJvbml0YSBieXBhc3MgbWFkdXJhaZIBEHNraW5fY2FyZV9jbGluaWOaAURDaTlEUVVsUlFVTnZaRU5vZEhsalJqbHZUMjVDY0UweFRUTldhMnN4VVd4Q2RsVnFiSE5SVlVwcVRucEdRbFp1WXhBQuABAPoBBQjkARBC!16s%2Fg%2F11m_44z751?entry=ttu&g_ep=EgoyMDI2MDYxMC4wIKXMDSoASAFQAw%3D%3D',
-  },
-  {
-    id: 'thirupaalai-residence',
-    name: 'Thirupaalai Residence',
-    location: 'Thirupaalai, Madurai',
-    category: 'ongoing',
-    status: 'Ongoing',
-    img: '/assets/images/thirupaalai-image-1.jpeg',
-    description: 'A modern contemporary premium residential project under construction in Madurai featuring latest finishes and high-end architecture.',
-    area: '3,800 sq.ft',
-    progress: 45,
-    phase: 'Interior Finishing',
-    expectedCompletion: 'March 2027',
-    story: 'Located in the rapidly developing area of Thirupaalai in Madurai, this premium residential project represents the absolute pinnacle of modern family living. The home is designed with a strong emphasis on open-plan layout, natural light ventilation, and contemporary architectural aesthetics. Featuring high-end concrete works, customized structural glass balustrades, premium woodwork, and a curated color palette, the residence is built to deliver unparalleled luxury. The project is currently in its interior finishing and custom installations phase, with completion planned for early 2027.',
-    gallery: [
-      '/assets/images/thirupaalai-image-1.jpeg',
-      '/assets/images/thirupaalai-image-2.jpeg',
-      '/assets/images/thirupaalai-image-3.jpeg'
-    ],
-    videos: [
-      '/assets/images/thirupaalai-video-1.mp4',
-      '/assets/images/thirupaalai-video-2.mp4'
-    ],
-    features: [
-      'Modern Open-Plan Design',
-      'Premium Interior Woodwork',
-      'Custom Glazing & Ventilation',
-      'Eco-Friendly Rainwater Systems',
-      'High-End Sanitary Fittings',
-      'Landscaped Outdoor Entry'
-    ],
-    mapUrl: 'https://www.google.com/maps/place/Thiruppalai,+Madurai,+Tamil+Nadu/data=!4m2!3m1!1s0x3b00c5ee91807d9f:0xc6822262d1838cf1?entry=tts',
-  },
-  {
-    id: 'mahatma-global-gateway',
-    name: 'Mahatma Global Gateway',
-    location: 'Madurai, Tamil Nadu',
-    category: 'completed',
-    status: 'Completed',
-    img: '/assets/images/school-image-1.jpeg',
-    description: 'Engineering consultancy and comprehensive interior work execution for Mahatma Global Gateway in Madurai.',
-    area: 'School Campus',
-    year: '2025',
-    story: 'Mahatma Global Gateway represents our hallmark project in educational institution interiors and engineering consultancy in Madurai. We designed and executed state-of-the-art classroom designs, administrative offices, corridors, and campus common areas that prioritize a stimulating learning environment. The design features colorful, durable finishes, high-quality safety-first lighting, ergonomic furniture configurations, and premium acoustics. Every element was carefully engineered to balance visual appeal, institutional functionality, and strict safety guidelines.',
-    gallery: [
-      '/assets/images/school-image-1.jpeg',
-      '/assets/images/school-image-2.jpeg',
-      '/assets/images/school-image-3.jpeg',
-      '/assets/images/school-image-4.jpeg',
-      '/assets/images/school-image-5.jpeg',
-      '/assets/images/school-image-6.jpeg',
-      '/assets/images/school-image-7.jpeg',
-      '/assets/images/school-image-8.jpeg',
-      '/assets/images/school-image-9.jpeg',
-      '/assets/images/school-image-10.jpeg',
-      '/assets/images/school-image-11.jpeg',
-      '/assets/images/school-image-12.jpeg',
-      '/assets/images/school-image-13.jpeg',
-      '/assets/images/school-image-14.jpeg',
-      '/assets/images/school-image-15.jpeg',
-      '/assets/images/school-image-16.jpeg',
-      '/assets/images/school-image-17.jpeg',
-      '/assets/images/school-image-18.jpeg',
-      '/assets/images/school-image-19.jpeg'
-    ],
-    features: [
-      'Engineering Consultancy',
-      'Premium School Interiors',
-      'Safety-Focused Lighting',
-      'Acoustic Ceiling Panels',
-      'Ergonomic Learning Spaces',
-      'High-Durability Finishes'
-    ],
-    mapUrl: 'https://www.google.com/maps/place/Mahatma+Global+Gateway/@9.964722,78.156111,15z/data=!4m2!3m1!1s0x0:0xbf2c8f0000000000?entry=tts',
-  },
-  {
-    id: 'sandhaipettai-residence',
-    name: 'Sandhaipettai Residence',
-    location: 'Sandhaipettai, Madurai',
-    category: 'completed',
-    status: 'Completed',
-    img: '/assets/images/sandhaipettai-image-1.jpeg',
-    description: 'A premium residential project under construction in Madurai featuring modern architectural planning and engineering.',
-    area: '4,200 sq.ft',
-    year: '2026',
-    story: 'Located in the historic area of Sandhaipettai in Madurai, this residential build represents Squaare Ten\'s commitment to premium quality structural engineering. The building features an optimized load-bearing design, high-strength concrete reinforcement, and robust foundation systems. Our team is working closely with top consultants to ensure every aspect of the project meets highest safety and efficiency standards. Custom planning allows for a layout that blends traditional spatial values with high-end modern amenities, perfectly suited for the urban landscape of Madurai.',
-    gallery: [
-      '/assets/images/sandhaipettai-image-1.jpeg',
-      '/assets/images/sandhaipettai-image-2.jpeg',
-      '/assets/images/sandhaipettai-image-3.jpeg',
-      '/assets/images/sandhaipettai-image-4.jpeg',
-      '/assets/images/sandhaipettai-image-5.jpeg'
-    ],
-    videos: [
-      '/assets/images/sandhaipettai-video-1.mp4',
-      '/assets/images/sandhaipettai-video-2.mp4',
-      '/assets/images/sandhaipettai-video-3.mp4',
-      '/assets/images/sandhaipettai-video-4.mp4',
-      '/assets/images/sandhaipettai-video-5.mp4'
-    ],
-    features: [
-      'High-Strength Reinforced Concrete',
-      'Optimized Foundation Design',
-      'Modern Structural Engineering',
-      'Ventilated Spatial Layout',
-      'Premium Building Material Sourcing',
-      'Integrated Safety Compliance'
-    ],
-    mapUrl: 'https://www.google.com/maps/place/Sandhaipettai,+Madurai,+Tamil+Nadu/data=!4m2!3m1!1s0x3b00c5df600b3967:0xfa7c0678d5940c3c?entry=tts',
-  },
-  {
-    id: 'emerald-villa-01',
-    name: 'Emerald Villa — Type A',
-    location: 'Madurai, Tamil Nadu',
-    category: 'houses',
-    status: 'Ready To Move',
-    img: '/assets/images/project-villa.png',
-    description: 'Ready-to-move 3BHK villa with premium finishes, private garden, and covered parking.',
-    price: '₹1.85 Cr',
-    bedrooms: '3 BHK',
-    area: '2,800 sq.ft',
-    story: 'The Emerald Villa Type A offers the perfect blend of luxury and comfort. With 3 spacious bedrooms, premium Italian marble flooring, and a private garden, this ready-to-move villa is designed for families who value quality living.',
-    gallery: ['/assets/images/project-villa.png', '/assets/images/project-interior.png', '/assets/images/project-residential.png'],
-    features: ['3 Bedrooms', 'Private Garden', 'Covered Parking', 'Italian Marble', 'Modular Kitchen', 'Rainwater Harvesting'],
-  },
-  {
-    id: 'emerald-villa-02',
-    name: 'Emerald Villa — Type B',
-    location: 'Coimbatore, Tamil Nadu',
-    category: 'houses',
-    status: 'Available',
-    img: '/assets/images/project-residential.png',
-    description: 'Spacious 4BHK independent house with modular kitchen, home theatre, and terrace garden.',
-    price: '₹2.45 Cr',
-    bedrooms: '4 BHK',
-    area: '3,600 sq.ft',
-    story: 'The Emerald Villa Type B is our flagship offering — a spacious 4BHK independent house designed for discerning buyers. With a dedicated home theatre, terrace garden, and top-of-the-line modular kitchen, this is luxury redefined.',
-    gallery: ['/assets/images/project-residential.png', '/assets/images/project-villa.png', '/assets/images/project-commercial.png'],
-    features: ['4 Bedrooms', 'Home Theatre', 'Terrace Garden', 'Modular Kitchen', 'Study Room', 'Double Car Parking'],
-  },
-  {
-    id: 'karuppiah-nagar',
-    name: 'Karuppiah Nagar',
-    location: 'Kovilpapakudi, Madurai',
-    category: 'plots',
-    status: 'Available',
-    img: '/assets/images/hero-bg.png',
-    description: 'Premium DTCP-approved residential plots with 30 & 40 ft roads, underground drainage, and excellent connectivity to Madurai city.',
-    plotArea: '1,200 – 2,400 sq.ft',
-    approval: 'DTCP Approved',
-    price: 'Starting ₹15 Lakhs',
-    story: 'Karuppiah Nagar is a premium residential plot development by Squareten Constructions Pvt Ltd, located in the rapidly growing Kovilpapakudi area of Madurai. The DTCP-approved layout features well-planned plots ranging from 1,200 to 2,400 sq.ft with 30 ft and 40 ft wide internal roads, underground drainage, street lighting, and landscaped common areas. With clear title deeds and excellent connectivity to Madurai city center, Karuppiah Nagar offers the perfect canvas for your dream home.',
-    gallery: ['/assets/images/hero-bg.png'],
-    features: ['DTCP Approved Layout', '30 & 40 ft Wide Roads', 'Underground Drainage', 'Street Lighting', 'Clear Title Deeds', 'Excellent Connectivity'],
-    isCustomPage: true,
-  },
-];
-const getGalleryItemClass = (index, total) => {
-  if (total === 2) {
-    return 'pd-gallery__item--half';
-  }
-  if (total === 5) {
-    return index < 2 ? 'pd-gallery__item--half' : 'pd-gallery__item--third';
-  }
-  if (total === 10) {
-    if (index === 9) return 'pd-gallery__item--full';
-    return index === 0 ? 'pd-gallery__item--large' : 'pd-gallery__item--standard';
-  }
-  if (total === 19) {
-    if (index === 18) return 'pd-gallery__item--full';
-    return (index === 0 || index === 12) ? 'pd-gallery__item--large' : 'pd-gallery__item--standard';
-  }
-  if (total % 3 === 0) {
-    return index === 0 ? 'pd-gallery__item--large' : 'pd-gallery__item--standard';
-  }
-  return 'pd-gallery__item--standard';
-};
 
 /* ── Location Pin SVG ────────────────────────────────── */
 const LocationPin = () => (
@@ -342,14 +20,122 @@ const LocationPin = () => (
   </svg>
 );
 
+/* ── Project Slideshow Component ─────────────────────── */
+function ProjectSlideshow({ images, name }) {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [fullscreen, setFullscreen] = useState(false);
+
+  const nextSlide = useCallback((e) => {
+    e?.stopPropagation();
+    setCurrentIndex((prev) => (prev + 1) % images.length);
+  }, [images.length]);
+
+  const prevSlide = useCallback((e) => {
+    e?.stopPropagation();
+    setCurrentIndex((prev) => (prev - 1 + images.length) % images.length);
+  }, [images.length]);
+
+  // Keyboard controls for fullscreen
+  useEffect(() => {
+    if (!fullscreen) return;
+    const handleKeyDown = (e) => {
+      if (e.key === 'ArrowRight') nextSlide();
+      if (e.key === 'ArrowLeft') prevSlide();
+      if (e.key === 'Escape') setFullscreen(false);
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [fullscreen, nextSlide, prevSlide]);
+
+  if (!images || !images.length) return null;
+
+  return (
+    <div className="pd-slideshow-container">
+      {/* Main Slide Display */}
+      <div className="pd-slideshow">
+        <button className="pd-slideshow__nav pd-slideshow__nav--prev" onClick={prevSlide} aria-label="Previous image">
+          <span>←</span>
+        </button>
+        <button className="pd-slideshow__nav pd-slideshow__nav--next" onClick={nextSlide} aria-label="Next image">
+          <span>→</span>
+        </button>
+
+        <div className="pd-slideshow__display" onClick={() => setFullscreen(true)}>
+          <img 
+            src={images[currentIndex]} 
+            alt={`${name} - Slide ${currentIndex + 1}`} 
+            className="pd-slideshow__img"
+          />
+          <button 
+            className="pd-slideshow__fullscreen-btn" 
+            onClick={(e) => { e.stopPropagation(); setFullscreen(true); }}
+            aria-label="View full screen"
+          >
+            <span>⛶ Full Screen</span>
+          </button>
+        </div>
+
+        <div className="pd-slideshow__counter">
+          {currentIndex + 1} / {images.length}
+        </div>
+      </div>
+
+      {/* Thumbnails */}
+      {images.length > 1 && (
+        <div className="pd-slideshow__thumbnails">
+          {images.map((img, idx) => (
+            <button
+              key={idx}
+              className={`pd-slideshow__thumbnail ${idx === currentIndex ? 'is-active' : ''}`}
+              onClick={() => setCurrentIndex(idx)}
+            >
+              <img src={img} alt={`Thumbnail ${idx + 1}`} />
+            </button>
+          ))}
+        </div>
+      )}
+
+      {/* Fullscreen Lightbox Portal */}
+      {fullscreen && (
+        <div className="pd-lightbox" onClick={() => setFullscreen(false)}>
+          <button className="pd-lightbox__close" onClick={() => setFullscreen(false)}>✕</button>
+          {images.length > 1 && (
+            <>
+              <button
+                className="pd-lightbox__nav pd-lightbox__nav--prev"
+                onClick={(e) => { e.stopPropagation(); prevSlide(); }}
+              >
+                ←
+              </button>
+              <button
+                className="pd-lightbox__nav pd-lightbox__nav--next"
+                onClick={(e) => { e.stopPropagation(); nextSlide(); }}
+              >
+                →
+              </button>
+            </>
+          )}
+          <img
+            className="pd-lightbox__image"
+            src={images[currentIndex]}
+            alt={`${name} — Photo ${currentIndex + 1}`}
+            onClick={(e) => e.stopPropagation()}
+          />
+          <div className="pd-lightbox__counter">
+            {currentIndex + 1} / {images.length}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
 export default function ProjectDetailPage() {
-  const { slug } = useParams();
+  const { category, slug } = useParams();
   const navigate = useNavigate();
   const pageRef = useRef(null);
-  const [lightboxOpen, setLightboxOpen] = useState(false);
-  const [lightboxIndex, setLightboxIndex] = useState(0);
 
-  const project = allProjects.find(p => p.id === slug);
+  const project = projectsData.find(p => p.id === slug);
 
   // Redirect to custom page if project has its own dedicated page
   useEffect(() => {
@@ -394,21 +180,46 @@ export default function ProjectDetailPage() {
         }
       );
 
-      // Gallery reveal
-      const galleryItems = pageRef.current.querySelectorAll('.pd-gallery__item');
-      if (galleryItems.length) {
-        gsap.fromTo(galleryItems,
-          { opacity: 0, y: 20 },
+      // Slideshow/Gallery reveal
+      gsap.fromTo('.pd-gallery-section',
+        { opacity: 0, y: 25 },
+        {
+          opacity: 1, y: 0, duration: 0.7, ease: 'power3.out',
+          scrollTrigger: {
+            trigger: '.pd-gallery-section',
+            start: 'top 85%',
+            toggleActions: 'play none none none',
+          },
+        }
+      );
+
+      // Videos section reveal
+      if (project.videos && project.videos.length > 0) {
+        gsap.fromTo('.pd-videos',
+          { opacity: 0, y: 25 },
           {
-            opacity: 1, y: 0, duration: 0.5, stagger: 0.1, ease: 'power3.out',
+            opacity: 1, y: 0, duration: 0.7, ease: 'power3.out',
             scrollTrigger: {
-              trigger: '.pd-gallery',
+              trigger: '.pd-videos',
               start: 'top 85%',
               toggleActions: 'play none none none',
             },
           }
         );
       }
+
+      // Map Section reveal
+      gsap.fromTo('.pd-map',
+        { opacity: 0, y: 25 },
+        {
+          opacity: 1, y: 0, duration: 0.7, ease: 'power3.out',
+          scrollTrigger: {
+            trigger: '.pd-map',
+            start: 'top 85%',
+            toggleActions: 'play none none none',
+          },
+        }
+      );
 
       // Features reveal
       gsap.fromTo('.pd-features',
@@ -440,26 +251,14 @@ export default function ProjectDetailPage() {
     return () => ctx.revert();
   }, [project]);
 
-  // Lightbox keyboard navigation
-  useEffect(() => {
-    if (!lightboxOpen) return;
-    const handleKey = (e) => {
-      if (e.key === 'Escape') setLightboxOpen(false);
-      if (e.key === 'ArrowLeft') setLightboxIndex(prev => (prev - 1 + project.gallery.length) % project.gallery.length);
-      if (e.key === 'ArrowRight') setLightboxIndex(prev => (prev + 1) % project.gallery.length);
-    };
-    document.addEventListener('keydown', handleKey);
-    document.body.style.overflow = 'hidden';
-    return () => {
-      document.removeEventListener('keydown', handleKey);
-      document.body.style.overflow = '';
-    };
-  }, [lightboxOpen, project]);
-
-  const openLightbox = useCallback((index) => {
-    setLightboxIndex(index);
-    setLightboxOpen(true);
-  }, []);
+  // Helper function to resolve Google Maps embed source dynamically
+  const getMapEmbedUrl = (proj) => {
+    if (proj.mapEmbedUrl) {
+      return proj.mapEmbedUrl;
+    }
+    // Generate using location name
+    return `https://maps.google.com/maps?q=${encodeURIComponent(proj.location || proj.name)}&t=&z=14&ie=UTF8&iwloc=&output=embed`;
+  };
 
   // 404 fallback
   if (!project) {
@@ -478,12 +277,7 @@ export default function ProjectDetailPage() {
     );
   }
 
-  const statusClass = {
-    'Completed': 'completed',
-    'Ongoing': 'ongoing',
-    'Available': 'available',
-    'Ready To Move': 'ready',
-  }[project.status] || 'available';
+  const statusClass = project.status.toLowerCase();
 
   return (
     <div className="project-detail-page app-layout is-ready" ref={pageRef}>
@@ -497,8 +291,8 @@ export default function ProjectDetailPage() {
             <div className="pd-hero__overlay" />
           </div>
           <div className="pd-hero__content">
-            <button className="pd-hero__back" onClick={() => navigate('/projects')}>
-              ← Back to Projects
+            <button className="pd-hero__back" onClick={() => navigate(`/projects/${project.category}`)}>
+              ← Back to {project.category.charAt(0).toUpperCase() + project.category.slice(1)}
             </button>
             <span className={`pd-hero__status pd-hero__status--${statusClass}`}>
               {project.status}
@@ -522,12 +316,12 @@ export default function ProjectDetailPage() {
               {project.area && (
                 <div className="pd-hero__meta-item">
                   <span className="pd-hero__meta-label">Area</span>
-                  <span className="pd-hero__meta-value">{project.area || project.plotArea}</span>
+                  <span className="pd-hero__meta-value">{project.area}</span>
                 </div>
               )}
               {project.year && (
                 <div className="pd-hero__meta-item">
-                  <span className="pd-hero__meta-label">Year</span>
+                  <span className="pd-hero__meta-label">Year Completed</span>
                   <span className="pd-hero__meta-value">{project.year}</span>
                 </div>
               )}
@@ -563,7 +357,7 @@ export default function ProjectDetailPage() {
         {project.story && (
           <section className="pd-story">
             <div className="container">
-              <span className="section__label">The Story</span>
+              <span className="section__label">The Design Journey</span>
               <div className="pd-story__content">
                 <h2 className="pd-story__heading">About This Project</h2>
                 <p className="pd-story__text">{project.story}</p>
@@ -599,36 +393,23 @@ export default function ProjectDetailPage() {
           </section>
         )}
 
-        {/* ── Gallery ─────────────────────────────────── */}
+        {/* ── Slideshow Gallery ───────────────────────── */}
         {project.gallery && project.gallery.length > 0 && (
-          <section className="pd-gallery">
+          <section className="pd-gallery-section">
             <div className="container">
               <span className="section__label">Gallery</span>
-              <div className="pd-gallery__grid">
-                {project.gallery.map((img, i) => (
-                  <div
-                    key={i}
-                    className={`pd-gallery__item ${getGalleryItemClass(i, project.gallery.length)}`}
-                    onClick={() => openLightbox(i)}
-                    role="button"
-                    tabIndex={0}
-                    onKeyDown={(e) => e.key === 'Enter' && openLightbox(i)}
-                  >
-                    <img src={img} alt={`${project.name} — Photo ${i + 1}`} loading="lazy" />
-                    <div className="pd-gallery__item-overlay">
-                      <span>View</span>
-                    </div>
-                  </div>
-                ))}
-              </div>
+              <h2 className="pd-gallery-section__title">Project Showcases</h2>
+              <ProjectSlideshow images={project.gallery} name={project.name} />
             </div>
           </section>
         )}
+
         {/* ── Videos ──────────────────────────────────── */}
         {project.videos && project.videos.length > 0 && (
           <section className="pd-videos">
             <div className="container">
-              <span className="section__label">Project Videos</span>
+              <span className="section__label">Cinematics</span>
+              <h2 className="pd-videos__title">Site Walks & Video Walkthroughs</h2>
               <div className="pd-videos__grid">
                 {project.videos.map((vid, i) => (
                   <div key={i} className="pd-videos__item">
@@ -640,11 +421,44 @@ export default function ProjectDetailPage() {
           </section>
         )}
 
+        {/* ── Google Map Location ────────────────────── */}
+        <section className="pd-map">
+          <div className="container">
+            <span className="section__label">Map View</span>
+            <h2 className="pd-map__heading">Google Map Location</h2>
+            <div className="pd-map__frame-wrap">
+              <iframe
+                title={`Map showing location of ${project.name}`}
+                src={getMapEmbedUrl(project)}
+                width="100%"
+                height="450"
+                style={{ border: 0 }}
+                allowFullScreen=""
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              />
+            </div>
+            {project.mapUrl && (
+              <div className="pd-map__action-wrap">
+                <a
+                  href={project.mapUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn btn--outline pd-map__btn"
+                >
+                  Open in Google Maps
+                </a>
+              </div>
+            )}
+          </div>
+        </section>
+
         {/* ── Features ────────────────────────────────── */}
         {project.features && project.features.length > 0 && (
           <section className="pd-features">
             <div className="container">
-              <span className="section__label">Key Features</span>
+              <span className="section__label">Technical specifications</span>
+              <h2 className="pd-features__title">Key Highlights & Inclusions</h2>
               <div className="pd-features__grid">
                 {project.features.map((feature, i) => (
                   <div className="pd-features__item" key={i}>
@@ -667,7 +481,7 @@ export default function ProjectDetailPage() {
               </p>
               <div className="pd-cta__actions">
                 <Link to="/#contact" className="btn btn--primary">Get In Touch</Link>
-                <Link to="/projects" className="btn btn--outline">View All Projects</Link>
+                <Link to={`/projects/${project.category}`} className="btn btn--outline">View Similar Projects</Link>
               </div>
             </div>
           </div>
@@ -675,37 +489,6 @@ export default function ProjectDetailPage() {
       </main>
 
       <Footer />
-
-      {/* ── Lightbox ──────────────────────────────────── */}
-      {lightboxOpen && (
-        <div className="pd-lightbox" onClick={(e) => e.target === e.currentTarget && setLightboxOpen(false)}>
-          <button className="pd-lightbox__close" onClick={() => setLightboxOpen(false)}>✕</button>
-          {project.gallery.length > 1 && (
-            <>
-              <button
-                className="pd-lightbox__nav pd-lightbox__nav--prev"
-                onClick={() => setLightboxIndex(prev => (prev - 1 + project.gallery.length) % project.gallery.length)}
-              >
-                ←
-              </button>
-              <button
-                className="pd-lightbox__nav pd-lightbox__nav--next"
-                onClick={() => setLightboxIndex(prev => (prev + 1) % project.gallery.length)}
-              >
-                →
-              </button>
-            </>
-          )}
-          <img
-            className="pd-lightbox__image"
-            src={project.gallery[lightboxIndex]}
-            alt={`${project.name} — Photo ${lightboxIndex + 1}`}
-          />
-          <div className="pd-lightbox__counter">
-            {lightboxIndex + 1} / {project.gallery.length}
-          </div>
-        </div>
-      )}
     </div>
   );
 }

@@ -13,10 +13,11 @@ import Stats from '../components/Stats';
 import Testimonials from '../components/Testimonials';
 import Contact from '../components/Contact';
 import Footer from '../components/Footer';
-import AIEstimator from '../components/AIEstimator';
 
-export default function HomePage({ isEstimatorOpen, setIsEstimatorOpen }) {
-  const [onboardingComplete, setOnboardingComplete] = useState(false);
+export default function HomePage() {
+  const [onboardingComplete, setOnboardingComplete] = useState(() => {
+    return sessionStorage.getItem('onboarding_shown') === 'true';
+  });
 
   return (
     <>
@@ -27,7 +28,7 @@ export default function HomePage({ isEstimatorOpen, setIsEstimatorOpen }) {
       <div className={`app-layout ${onboardingComplete ? 'is-ready' : ''}`}>
         <Navbar isVisible={onboardingComplete} />
         <main>
-          <Hero isReady={onboardingComplete} onOpenEstimator={() => setIsEstimatorOpen(true)} />
+          <Hero isReady={onboardingComplete} />
           <About />
           <Services />
           <ProjectCarousel />
@@ -37,9 +38,6 @@ export default function HomePage({ isEstimatorOpen, setIsEstimatorOpen }) {
         </main>
         <Footer />
       </div>
-
-      {/* Estimator Modal */}
-      <AIEstimator isOpen={isEstimatorOpen} onClose={() => setIsEstimatorOpen(false)} />
     </>
   );
 }

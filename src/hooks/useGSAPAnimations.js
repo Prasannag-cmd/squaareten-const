@@ -29,119 +29,106 @@ export function useGSAPTimeline(containerRef, timelineConfig = {}, deps = []) {
 
 /**
  * Hero entrance animations
- */
-export function useHeroAnimation(heroRef, isReady) {
+ */export function useHeroAnimation(heroRef, isReady) {
   useEffect(() => {
     if (!heroRef.current || !isReady) return;
 
     const hero = heroRef.current;
-    const bg = hero.querySelector('.hero__bg');
-    const label = hero.querySelector('.hero__label');
+    const leftPanel = hero.querySelector('.hero__left-panel');
+    const rightPanel = hero.querySelector('.hero__right-panel');
+    const contentLeft = hero.querySelector('.hero__content-left');
+    const tagline = hero.querySelector('.hero__tagline');
     const title = hero.querySelector('.hero__title');
     const desc = hero.querySelector('.hero__description');
     const actions = hero.querySelector('.hero__actions');
-    const scroll = hero.querySelector('.hero__scroll');
-    const shapes = hero.querySelectorAll('.hero__shape');
+    const statsBar = hero.querySelector('.hero__stats-bar');
 
     const ctx = gsap.context(() => {
-      // Text Entrance Timeline
-      const tl = gsap.timeline({ delay: 0.3 });
+      const tl = gsap.timeline({ delay: 0.1 });
 
-      // Label slides in
-      tl.to(label, {
+      // 1. Reveal Left solid dark panel
+      if (leftPanel) {
+        tl.fromTo(leftPanel,
+          { opacity: 0, x: -30 },
+          { opacity: 1, x: 0, duration: 0.8, ease: 'power3.out' }
+        );
+      }
+
+      // 2. Reveal Right image panel
+      if (rightPanel) {
+        tl.fromTo(rightPanel,
+          { opacity: 0, x: 30 },
+          { opacity: 1, x: 0, duration: 1, ease: 'power3.out' },
+          '-=0.6'
+        );
+      }
+
+      // 3. Stagger reveal left content items
+      tl.to(contentLeft, {
         opacity: 1,
-        duration: 0.6,
-        ease: 'power3.out',
-      });
+        duration: 0.1,
+      }, '-=0.6');
 
-      // Title — split into lines and reveal
-      if (title) {
-        const titleLines = title.querySelectorAll('.split-line__inner');
-        if (titleLines.length) {
-          tl.to(titleLines, {
-            y: 0,
-            duration: 0.9,
-            stagger: 0.12,
-            ease: 'expo.out',
-          }, '-=0.3');
-        } else {
-          tl.fromTo(title,
-            { opacity: 0, y: 60 },
-            { opacity: 1, y: 0, duration: 0.9, ease: 'expo.out' },
+      tl.fromTo(tagline,
+        { opacity: 0, y: -15 },
+        { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' },
+        '-=0.5'
+      );
+
+      tl.fromTo(title,
+        { opacity: 0, y: 30 },
+        { opacity: 1, y: 0, duration: 0.7, ease: 'expo.out' },
+        '-=0.4'
+      );
+
+      tl.fromTo(desc,
+        { opacity: 0 },
+        { opacity: 1, duration: 0.6, ease: 'power2.out' },
+        '-=0.4'
+      );
+
+      tl.fromTo(actions,
+        { opacity: 0, y: 15 },
+        { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' },
+        '-=0.4'
+      );
+
+      // 4. Reveal Bottom Stats Bar
+      if (statsBar) {
+        tl.fromTo(statsBar,
+          { opacity: 0, y: 20 },
+          { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' },
+          '-=0.5'
+        );
+        
+        const items = statsBar.querySelectorAll('.hero__stat-item');
+        const dividers = statsBar.querySelectorAll('.hero__stat-divider');
+        
+        if (items.length) {
+          tl.fromTo(items,
+            { opacity: 0, y: 12 },
+            { opacity: 1, y: 0, duration: 0.5, stagger: 0.06, ease: 'power2.out' },
+            '-=0.4'
+          );
+        }
+        if (dividers.length) {
+          tl.fromTo(dividers,
+            { opacity: 0, scaleY: 0 },
+            { opacity: 1, scaleY: 1, duration: 0.4, stagger: 0.04, ease: 'power2.out' },
             '-=0.3'
           );
         }
       }
 
-      // Description fades in
-      tl.to(desc, {
-        opacity: 1,
-        duration: 0.6,
-        ease: 'power2.out',
-      }, '-=0.4');
-
-      // CTA buttons
-      tl.to(actions, {
-        opacity: 1,
-        duration: 0.6,
-        ease: 'power2.out',
-      }, '-=0.3');
-
-      // Scroll indicator
-      if (scroll) {
-        tl.to(scroll, {
-          opacity: 1,
-          duration: 0.5,
-          ease: 'power2.out',
-        }, '-=0.2');
-      }
-
-      // Floating shapes
-      if (shapes.length) {
-        tl.to(shapes, {
-          opacity: 0.15,
-          duration: 0.8,
-          stagger: 0.15,
-          ease: 'power2.out',
-        }, '-=0.6');
-
-        // Continuous subtle float
-        shapes.forEach((shape, i) => {
-          gsap.to(shape, {
-            y: `${15 + i * 5}`,
-            rotation: `+=${5 + i * 3}`,
-            duration: 3 + i,
-            repeat: -1,
-            yoyo: true,
-            ease: 'sine.inOut',
-          });
-        });
-      }
-
-      // Background Parallax
-      if (bg) {
-        gsap.to(bg, {
-          y: '-20%',
+      // Watermark Parallax depth trigger on scroll
+      const watermark = hero.querySelector('.hero__watermark');
+      if (watermark) {
+        gsap.to(watermark, {
+          yPercent: 18,
           ease: 'none',
           scrollTrigger: {
             trigger: hero,
             start: 'top top',
-            end: 'bottom top',
-            scrub: 0.5,
-          },
-        });
-      }
-
-      // Hero content parallax on scroll
-      const content = hero.querySelector('.hero__content');
-      if (content) {
-        gsap.to(content, {
-          y: 100,
-          opacity: 0,
-          ease: 'none',
-          scrollTrigger: {
-            trigger: hero,
-            start: 'center center',
             end: 'bottom top',
             scrub: 0.5,
           },

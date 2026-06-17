@@ -60,6 +60,18 @@
   display: flex;
   align-items: flex-start;
   gap: var(--space-md);
+  padding: 1rem;
+  border-radius: var(--radius-md);
+  transition: background-color 0.4s var(--ease-out-expo), transform 0.4s var(--ease-spring);
+}
+
+.contact__detail:hover {
+  background-color: rgba(255, 255, 255, 0.02);
+  transform: translateX(4px);
+}
+
+html[data-theme="light"] .contact__detail:hover {
+  background-color: rgba(0, 0, 0, 0.02);
 }
 
 .contact__detail-icon {
@@ -68,12 +80,19 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(201, 169, 110, 0.1);
+  background: rgba(206, 148, 67, 0.08);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   color: var(--color-accent);
   font-size: 1.125rem;
   flex-shrink: 0;
+  transition: transform 0.4s var(--ease-spring), border-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+.contact__detail:hover .contact__detail-icon {
+  transform: scale(1.1) rotate(-8deg);
+  border-color: var(--color-accent);
+  box-shadow: 0 0 10px rgba(206, 148, 67, 0.35);
 }
 
 .contact__detail-label {
@@ -81,7 +100,7 @@
   font-weight: var(--fw-semibold);
   letter-spacing: var(--ls-wide);
   text-transform: uppercase;
-  color: var(--color-text-muted);
+  color: var(--color-text-secondary); /* Upgraded contrast */
   margin-bottom: 4px;
 }
 
@@ -101,10 +120,22 @@
 
 /* ── Form Side ──────────────────────────────────────── */
 .contact__form {
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: var(--border-double-glass);
   border-radius: var(--radius-lg);
   padding: var(--space-2xl);
+  box-shadow: var(--shadow-double-glow);
+  transition: border-color 0.5s ease, box-shadow 0.5s ease;
+}
+
+.contact__form:hover {
+  border-color: var(--color-accent);
+  box-shadow: 
+    var(--shadow-double-glow),
+    0 20px 40px rgba(0, 0, 0, 0.5),
+    var(--shadow-gold-glow);
 }
 
 .contact__form-group {
@@ -118,7 +149,7 @@
   font-weight: var(--fw-semibold);
   letter-spacing: var(--ls-wide);
   text-transform: uppercase;
-  color: var(--color-text-muted);
+  color: var(--color-text-secondary); /* Upgraded contrast */
   margin-bottom: var(--space-xs);
 }
 
@@ -126,13 +157,20 @@
 .contact__form-textarea {
   width: 100%;
   padding: 0.875rem 1rem;
-  background: var(--color-bg);
-  border: 1px solid var(--color-border);
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: var(--radius-md);
   color: var(--color-text);
   font-size: var(--fs-body);
-  transition: border-color 0.3s var(--ease-out-quart),
-              box-shadow 0.3s var(--ease-out-quart);
+  transition: border-color 0.4s var(--ease-out-quart),
+              box-shadow 0.4s var(--ease-out-quart),
+              background-color 0.4s var(--ease-out-quart);
+}
+
+html[data-theme="light"] .contact__form-input,
+html[data-theme="light"] .contact__form-textarea {
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .contact__form-input::placeholder,
@@ -143,7 +181,14 @@
 .contact__form-input:focus,
 .contact__form-textarea:focus {
   border-color: var(--color-accent);
-  box-shadow: 0 0 0 3px var(--color-accent-glow);
+  background: rgba(0, 0, 0, 0.35);
+  box-shadow: 0 0 0 1px var(--color-accent), 0 0 15px var(--color-accent-glow);
+}
+
+html[data-theme="light"] .contact__form-input:focus,
+html[data-theme="light"] .contact__form-textarea:focus {
+  background: #FFFFFF;
+  box-shadow: 0 0 0 1px var(--color-accent), 0 0 15px var(--color-accent-glow);
 }
 
 .contact__form-textarea {
@@ -161,5 +206,44 @@
   .contact__grid {
     grid-template-columns: 1fr;
     gap: var(--space-2xl);
+  }
+}
+
+/* ── WhatsApp FAB ─────────────────────────────────── */
+.whatsapp-fab {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  z-index: 8000;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: #25d366;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(37, 211, 102, 0.3), var(--shadow-md);
+  transition: transform 0.3s var(--ease-spring),
+              box-shadow 0.3s var(--ease-out-quart);
+  border: none;
+}
+
+.whatsapp-fab:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4), var(--shadow-lg);
+  color: #ffffff;
+}
+
+.whatsapp-fab svg {
+  width: 26px;
+  height: 26px;
+}
+
+@media (max-width: 480px) {
+  .whatsapp-fab {
+    bottom: 20px;
+    right: 20px;
   }
 }

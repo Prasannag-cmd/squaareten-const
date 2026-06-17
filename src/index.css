@@ -15,9 +15,10 @@
 @import './styles/testimonials.css';
 @import './styles/contact.css';
 @import './styles/footer.css';
-@import './styles/ai-estimator.css';
-@import './styles/ai-assistant.css';
 @import './styles/projects-page.css';
 @import './styles/project-detail.css';
 @import './styles/about-page.css';
 @import './styles/careers-page.css';
+@import './styles/consultation-page.css';
+@import './styles/gallery-page.css';
+

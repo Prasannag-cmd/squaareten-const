@@ -324,7 +324,7 @@ export default function FounderStory() {
           <div className="founder-grid-container">
             {/* Portrait Column */}
             <div className="founder-portrait__wrap" ref={portraitRef}>
-              <img className="founder-portrait__img" src="/assets/images/about-story.png" alt="Srinivasan & Praveen Kumar Portrait" />
+              <img className="founder-portrait__img" src="/assets/images/about-story.jpg" alt="Srinivasan & Praveen Kumar Portrait" />
               <div className="founder-portrait__sweep" />
               <div className="founder-portrait__frame" />
             </div>

@@ -6,23 +6,23 @@
 :root {
   /* ── Color Palette ────────────────────────────────── */
   --color-bg:            #0a0a0a;
-  --color-bg-alt:        #111111;
-  --color-surface:       #161616;
-  --color-surface-hover: #1e1e1e;
-  --color-border:        rgba(201, 169, 110, 0.15);
-  --color-border-hover:  rgba(201, 169, 110, 0.4);
+  --color-bg-alt:        #1e1e1e;
+  --color-surface:       #2d2d2d;
+  --color-surface-hover: #3d3d3d;
+  --color-border:        rgba(206, 148, 67, 0.15);
+  --color-border-hover:  rgba(206, 148, 67, 0.4);
 
   /* Accent — Warm Gold */
-  --color-accent:        #c9a96e;
-  --color-accent-light:  #e8d5a8;
-  --color-accent-dark:   #9a7d4a;
-  --color-accent-glow:   rgba(201, 169, 110, 0.25);
-  --color-accent-glow-strong: rgba(201, 169, 110, 0.5);
+  --color-accent:        #CE9443;
+  --color-accent-light:  #e0ac67;
+  --color-accent-dark:   #a67029;
+  --color-accent-glow:   rgba(206, 148, 67, 0.25);
+  --color-accent-glow-strong: rgba(206, 148, 67, 0.5);
 
   /* Text */
   --color-text:          #f0ece4;
-  --color-text-secondary:#b8b0a0;
-  --color-text-muted:    #6b6560;
+  --color-text-secondary:#979797;
+  --color-text-muted:    #666666;
   --color-text-dark:     #1a1a1a;
 
   /* Overlays */
@@ -30,10 +30,14 @@
   --overlay-darker:      rgba(10, 10, 10, 0.85);
   --overlay-gradient:    linear-gradient(135deg, rgba(10,10,10,0.9) 0%, rgba(10,10,10,0.4) 100%);
 
+  /* Navbar backgrounds */
+  --navbar-bg:           rgba(10, 10, 10, 0.45);
+  --navbar-bg-scrolled:  rgba(10, 10, 10, 0.85);
+
   /* ── Typography ───────────────────────────────────── */
-  --font-heading:        'Outfit', sans-serif;
-  --font-body:           'Inter', sans-serif;
-  --font-sans:           'Outfit', sans-serif;
+  --font-heading:        'Montserrat', sans-serif;
+  --font-body:           'Montserrat', sans-serif;
+  --font-sans:           'Montserrat', sans-serif;
 
   --fs-display:          clamp(3rem, 6vw, 6rem);
   --fs-h1:               clamp(2.25rem, 4.5vw, 4.5rem);
@@ -106,6 +110,12 @@
   --shadow-lg:           0 8px 40px rgba(0, 0, 0, 0.5);
   --shadow-glow:         0 0 30px var(--color-accent-glow);
   --shadow-glow-strong:  0 0 60px var(--color-accent-glow-strong);
+  
+  /* Luxury Gloss Accent Variables */
+  --shadow-gold-glow:    0 0 25px rgba(206, 148, 67, 0.35);
+  --shadow-double-glow:  inset 0 1px 0px rgba(255, 255, 255, 0.15), 0 0 25px rgba(206, 148, 67, 0.25);
+  --glass-shine:         linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, transparent 100%);
+  --border-double-glass: 1px solid rgba(255, 255, 255, 0.1);
 
   /* ── Z-Index Scale ────────────────────────────────── */
   --z-base:              1;
@@ -119,5 +129,56 @@
   /* ── Container ────────────────────────────────────── */
   --container-max:       1320px;
   --container-padding:   clamp(1.25rem, 4vw, 3rem);
+}
+
+/* ── Light Mode / Day Mode Theme Tokens ────────────── */
+:root[data-theme="light"] {
+  --color-bg:            #fbfaf7;
+  --color-bg-alt:        #f3f1e8;
+  --color-surface:       #ffffff;
+  --color-surface-hover: #faf9f5;
+  --color-border:        rgba(206, 148, 67, 0.2);
+  --color-border-hover:  rgba(206, 148, 67, 0.45);
+
+  /* Accent — Readability gold */
+  --color-accent:        #CE9443;
+  --color-accent-light:  #b87b2c;
+  --color-accent-dark:   #e0ac67;
+  --color-accent-glow:   rgba(179, 146, 87, 0.18);
+  --color-accent-glow-strong: rgba(179, 146, 87, 0.35);
+
+  /* Text overrides */
+  --color-text:          #1b1a18;
+  --color-text-secondary:#5a544a;
+  --color-text-muted:    #908a7e;
+  --color-text-dark:     #ffffff; /* Elements that stay dark (e.g. CTA buttons, sliders) */
+
+  /* Overlays */
+  --overlay-dark:        rgba(251, 250, 247, 0.7);
+  --overlay-darker:      rgba(251, 250, 247, 0.88);
+  --overlay-gradient:    linear-gradient(135deg, rgba(251,250,247,0.92) 0%, rgba(251,250,247,0.5) 100%);
+
+  /* Navbar backgrounds */
+  --navbar-bg:           rgba(251, 250, 247, 0.55);
+  --navbar-bg-scrolled:  rgba(251, 250, 247, 0.92);
+
+  /* Glassmorphism */
+  --glass-bg:            rgba(255, 255, 255, 0.75);
+  --glass-bg-hover:      rgba(255, 255, 255, 0.92);
+  --glass-border:        1px solid rgba(154, 125, 74, 0.15);
+  --glass-blur:          6px;
+
+  /* Shadows */
+  --shadow-sm:           0 2px 8px rgba(0, 0, 0, 0.05);
+  --shadow-md:           0 4px 16px rgba(154, 125, 74, 0.08);
+  --shadow-lg:           0 10px 30px rgba(154, 125, 74, 0.12);
+  --shadow-glow:         0 0 20px rgba(179, 146, 87, 0.2);
+  --shadow-glow-strong:  0 0 45px rgba(179, 146, 87, 0.35);
+
+  /* Luxury Gloss Accent Variables */
+  --shadow-gold-glow:    0 0 20px rgba(206, 148, 67, 0.22);
+  --shadow-double-glow:  inset 0 1px 0px rgba(255, 255, 255, 0.65), 0 0 20px rgba(179, 146, 87, 0.15);
+  --glass-shine:         linear-gradient(135deg, rgba(255, 255, 255, 0.5) 0%, transparent 100%);
+  --border-double-glass: 1px solid rgba(154, 125, 74, 0.18);
 }
 

@@ -12,14 +12,12 @@ import AboutPage from './pages/AboutPage';
 import CareersPage from './pages/CareersPage';
 import ProjectDetailPage from './pages/ProjectDetailPage';
 import KaruppiahNagarPage from './pages/KaruppiahNagarPage';
+import ConsultationPage from './pages/ConsultationPage';
+import GalleryPage from './pages/GalleryPage';
 import CustomCursor from './components/CustomCursor';
 import WhatsAppFAB from './components/WhatsAppFAB';
-import AIAssistant from './components/AIAssistant';
-import AIEstimator from './components/AIEstimator';
 
 export default function App() {
-  const [isEstimatorOpen, setIsEstimatorOpen] = useState(false);
-
   useEffect(() => {
     // Register GSAP ScrollTrigger
     gsap.registerPlugin(ScrollTrigger);
@@ -57,26 +55,20 @@ export default function App() {
 
       {/* Floating Action Buttons */}
       <WhatsAppFAB />
-      <AIAssistant onOpenEstimator={() => setIsEstimatorOpen(true)} />
 
       {/* Routes */}
       <Routes>
-        <Route path="/" element={
-              <HomePage
-                isEstimatorOpen={isEstimatorOpen}
-                setIsEstimatorOpen={setIsEstimatorOpen}
-              />
-            } />
-          <Route path="/projects" element={<ProjectsPage />} />
-          <Route path="/projects/karuppiah-nagar" element={<KaruppiahNagarPage />} />
-          <Route path="/projects/:slug" element={<ProjectDetailPage />} />
-          <Route path="/about" element={<AboutPage />} />
-          <Route path="/careers" element={<CareersPage />} />
-          <Route path="*" element={<Navigate to="/" replace />} />
+        <Route path="/" element={<HomePage />} />
+        <Route path="/consultation" element={<ConsultationPage />} />
+        <Route path="/gallery" element={<GalleryPage />} />
+        <Route path="/projects" element={<Navigate to="/projects/residential" replace />} />
+        <Route path="/projects/karuppiah-nagar" element={<KaruppiahNagarPage />} />
+        <Route path="/projects/:category" element={<ProjectsPage />} />
+        <Route path="/projects/:category/:slug" element={<ProjectDetailPage />} />
+        <Route path="/about" element={<AboutPage />} />
+        <Route path="/careers" element={<CareersPage />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
-
-      {/* Global AI Cost Estimator Modal */}
-      <AIEstimator isOpen={isEstimatorOpen} onClose={() => setIsEstimatorOpen(false)} />
     </Router>
   );
 }

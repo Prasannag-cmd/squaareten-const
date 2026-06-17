@@ -2,16 +2,20 @@
    ABOUT PAGE — Premium Luxury Stylesheet
    ============================================================ */
 
-/* ── Gold Accent Tokens ─────────────────────────────── */
+/* ── Gold Accent & Glassmorphism Tokens ───────────────── */
 :root {
-  --gold: #d4af37;
-  --gold-light: #f0d77b;
-  --gold-dark: #b8941e;
-  --gold-glow: rgba(212, 175, 55, 0.25);
-  --gold-subtle: rgba(212, 175, 55, 0.08);
-  --about-surface: rgba(255, 255, 255, 0.04);
-  --about-border: rgba(255, 255, 255, 0.08);
+  --gold: #CE9443; /* Brand Gold Accent */
+  --gold-light: #e0ac67;
+  --gold-dark: #a67029;
+  --gold-glow: rgba(206, 148, 67, 0.35);
+  --gold-subtle: rgba(206, 148, 67, 0.1);
+  --about-surface: linear-gradient(135deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.02) 100%);
+  --about-surface-hover: linear-gradient(135deg, rgba(255, 255, 255, 0.09) 0%, rgba(255, 255, 255, 0.04) 100%);
+  --about-border: rgba(255, 255, 255, 0.12);
+  --about-border-hover: rgba(206, 148, 67, 0.4);
   --about-glass: rgba(255, 255, 255, 0.03);
+  --glass-highlight: inset 1px 1px 0px rgba(255, 255, 255, 0.15);
+  --glass-highlight-hover: inset 1px 1px 0px rgba(255, 255, 255, 0.3);
   --luxury-ease: cubic-bezier(.22, 1, .36, 1);
 }
 
@@ -84,6 +88,7 @@
   justify-content: center;
   overflow: hidden;
   background: #070707;
+  padding-bottom: 100px; /* Shift content up to prevent overlapping scroll indicator */
 }
 
 .about-hero__bg-container {
@@ -324,9 +329,9 @@
 /* Premium Scroll Indicator Redesign */
 .about-hero__scroll {
   position: absolute;
-  bottom: 45px;
+  bottom: 25px;
   left: 50%;
-  transform: translate3d(-50%, 0, 0) scale(0.8);
+  transform: translate3d(-50%, 0, 0) scale(0.75);
   opacity: 0;
   z-index: 7;
   will-change: transform, opacity;
@@ -1137,17 +1142,20 @@
   position: relative;
   padding: clamp(32px, 4vw, 56px);
   border-radius: var(--radius-xl);
-  background: var(--about-glass);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  background: var(--about-surface);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
   border: 1px solid var(--about-border);
   overflow: hidden;
-  transition: transform 0.5s var(--luxury-ease), box-shadow 0.5s var(--luxury-ease);
+  box-shadow: var(--glass-highlight), 0 15px 35px rgba(0, 0, 0, 0.3);
+  transition: transform 0.5s var(--luxury-ease), border-color 0.5s var(--luxury-ease), background 0.5s var(--luxury-ease), box-shadow 0.5s var(--luxury-ease);
 }
 
 .mv-card:hover {
   transform: translateY(-6px);
-  box-shadow: 0 24px 64px rgba(212,175,55,0.08);
+  background: var(--about-surface-hover);
+  border-color: var(--about-border-hover);
+  box-shadow: var(--glass-highlight-hover), 0 25px 50px rgba(0, 0, 0, 0.5), 0 0 25px var(--gold-glow);
 }
 
 /* Animated border sweep */
@@ -1238,17 +1246,19 @@
   position: relative;
   padding: clamp(28px, 3vw, 44px);
   border-radius: var(--radius-xl);
-  background: var(--color-surface);
+  background: var(--about-surface);
   border: 1px solid var(--about-border);
   text-align: center;
-  transition: transform 0.5s var(--luxury-ease), border-color 0.5s var(--luxury-ease), box-shadow 0.5s var(--luxury-ease);
   overflow: hidden;
+  box-shadow: var(--glass-highlight), 0 10px 30px rgba(0, 0, 0, 0.2);
+  transition: transform 0.5s var(--luxury-ease), border-color 0.5s var(--luxury-ease), background 0.5s var(--luxury-ease), box-shadow 0.5s var(--luxury-ease);
 }
 
 .value-card:hover {
   transform: translateY(-6px);
-  border-color: rgba(212,175,55,0.3);
-  box-shadow: 0 16px 48px rgba(212,175,55,0.06);
+  background: var(--about-surface-hover);
+  border-color: var(--about-border-hover);
+  box-shadow: var(--glass-highlight-hover), 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 20px var(--gold-glow);
 }
 
 .value-card__icon {
@@ -1462,14 +1472,17 @@
   position: relative;
   border-radius: var(--radius-xl);
   overflow: hidden;
-  background: var(--color-surface);
+  background: var(--about-surface);
   border: 1px solid var(--about-border);
-  transition: transform 0.5s var(--luxury-ease), box-shadow 0.5s var(--luxury-ease);
+  box-shadow: var(--glass-highlight), 0 15px 35px rgba(0, 0, 0, 0.3);
+  transition: transform 0.5s var(--luxury-ease), border-color 0.5s var(--luxury-ease), background 0.5s var(--luxury-ease), box-shadow 0.5s var(--luxury-ease);
 }
 
 .leader-card:hover {
   transform: translateY(-8px);
-  box-shadow: 0 24px 64px rgba(0,0,0,0.12);
+  background: var(--about-surface-hover);
+  border-color: var(--about-border-hover);
+  box-shadow: var(--glass-highlight-hover), 0 25px 50px rgba(0, 0, 0, 0.5), 0 0 25px var(--gold-glow);
 }
 
 .leader-card__photo {
