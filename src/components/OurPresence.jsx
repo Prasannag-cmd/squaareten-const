@@ -60,10 +60,10 @@ export default function OurPresence() {
           <div className="presence__logo-wrap">
             <img src="/assets/images/logo.png" alt="Squaareten Logo" className="presence__logo" />
           </div>
-          <span className="presence__company-title">SQUAARTE TEN CONSTRUCTIONS PVT. LTD.</span>
-          <h2 className="presence__tamil-title">தமிழகம் முழுவதும் எங்கள் தடம்</h2>
+          <span className="presence__company-title">SQUAARE TEN CONSTRUCTIONS PVT. LTD.</span>
+          <h2 className="presence__tamil-title">Our Footprints Across Tamil Nadu</h2>
           <p className="presence__tamil-subtitle">
-            உறுதியான கட்டுக்கோப்போம்! நம்பிக்கையை வளர்க்கிறோம்!
+            Solid Foundations, Cultivating Trust
           </p>
           <div className="presence__pill-badge">
             ACROSS TAMIL NADU, DELIVERING EXCELLENCE
@@ -105,30 +105,33 @@ export default function OurPresence() {
 
                   {/* Stylized Tamil Nadu landmass SVG outline path */}
                   <path 
-                    d="M 285 25 
-                       C 295 25, 315 20, 335 35
-                       C 355 50, 375 70, 365 90
-                       C 355 110, 335 120, 315 130
-                       C 305 150, 305 180, 305 200
-                       C 305 220, 325 240, 335 260
-                       C 345 280, 345 300, 325 320
-                       C 305 340, 305 370, 325 390
-                       C 345 410, 375 410, 385 420
-                       C 395 430, 355 440, 325 440
-                       C 305 440, 285 450, 265 470
-                       C 245 490, 225 510, 205 530
-                       C 185 550, 155 570, 135 580
-                       C 125 585, 115 585, 105 580
-                       C 95 570, 95 550, 105 530
-                       C 115 510, 125 490, 115 470
-                       C 105 450, 75 440, 65 420
-                       C 55 400, 55 380, 65 360
-                       C 75 340, 75 320, 65 300
-                       C 55 280, 35 270, 35 250
-                       C 35 230, 65 210, 85 190
-                       C 105 170, 115 150, 125 130
-                       C 135 110, 155 100, 175 90
-                       C 195 80, 225 70, 245 50
+                    d="M 330 65 
+                       C 340 65, 345 70, 350 80
+                       C 350 90, 340 110, 335 125
+                       C 330 140, 320 160, 315 175
+                       C 310 190, 305 210, 305 225
+                       C 305 240, 315 250, 325 260
+                       C 335 270, 345 275, 345 285
+                       C 345 295, 330 300, 315 305
+                       C 300 310, 285 315, 275 325
+                       C 265 335, 285 340, 310 342
+                       C 335 344, 345 346, 335 352
+                       C 325 358, 295 358, 270 360
+                       C 245 362, 230 370, 220 385
+                       C 210 400, 215 415, 210 430
+                       C 205 445, 185 460, 165 470
+                       C 145 480, 130 488, 125 488
+                       C 120 488, 115 475, 115 460
+                       C 115 445, 120 430, 115 415
+                       C 110 400, 95 385, 90 370
+                       C 85 355, 80 340, 80 325
+                       C 80 310, 90 295, 85 280
+                       C 80 265, 65 255, 60 240
+                       C 55 225, 75 215, 95 200
+                       C 115 185, 125 170, 135 150
+                       C 145 130, 160 115, 175 105
+                       C 190 95, 210 95, 225 90
+                       C 240 85, 255 75, 270 65
                        Z" 
                     fill="url(#mapGradient)"
                     stroke="rgba(206, 148, 67, 0.35)"
