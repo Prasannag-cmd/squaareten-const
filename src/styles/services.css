@@ -78,7 +78,7 @@
   border-color: var(--color-accent);
   box-shadow: 
     var(--shadow-double-glow),
-    0 15px 35px rgba(0, 0, 0, 0.4),
+    var(--shadow-lg),
     var(--shadow-gold-glow);
 }
 
@@ -161,6 +161,7 @@
 
 .service-card:hover .service-card__title {
   transform: translateY(-2px);
+  color: var(--color-accent);
 }
 
 .service-card__desc {

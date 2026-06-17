@@ -258,10 +258,10 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  background: rgba(20, 20, 20, 0.35);
-  border: 1px solid rgba(255, 255, 255, 0.03);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  box-shadow: var(--shadow-sm);
   overflow: hidden;
   height: 100%;
   cursor: pointer;
@@ -269,7 +269,67 @@
   text-decoration: none;
   transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
               box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1),
-              border-color 0.4s ease;
+              border-color 0.4s ease,
+              background-color 0.4s ease;
+}
+
+.project-card:hover {
+  transform: translateY(-8px);
+  background-color: var(--color-surface-hover);
+  border-color: var(--color-accent);
+  box-shadow: 
+    var(--shadow-double-glow),
+    var(--shadow-lg),
+    var(--shadow-gold-glow);
+}
+
+.project-card:hover .project-card__image {
+  transform: scale(1.08);
+}
+
+.project-card:hover .project-card__name {
+  transform: translate3d(0, 0, 0);
+  opacity: 1;
+  color: var(--color-accent);
+}
+
+.project-card:hover .project-card__location {
+  opacity: 1;
+}
+
+.project-card:hover .project-card__location svg {
+  stroke: var(--color-accent);
+}
+
+.project-card:hover .project-card__special-meta {
+  opacity: 1;
+}
+
+.project-card:hover .project-card__link {
+  color: var(--color-accent);
+}
+
+.project-card:hover .project-card__action {
+  background-color: rgba(206, 148, 67, 0.03);
+}
+
+/* Sliding gold bottom accent line */
+.project-card__gold-line {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  width: 100%;
+  background: linear-gradient(90deg, transparent, var(--color-accent), transparent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.5s var(--ease-out-expo);
+  box-shadow: 0 0 8px var(--color-accent);
+  z-index: 5;
+}
+
+.project-card:hover .project-card__gold-line {
+  transform: scaleX(1);
 }
 
 
@@ -339,9 +399,28 @@
 }
 
 .project-card__status--plot {
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--color-bg-alt);
   color: var(--color-text-secondary);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--color-border);
+}
+
+/* Light Mode Overrides for Project Status Badges */
+html[data-theme="light"] .project-card__status--completed {
+  color: #2e7d32;
+  background: rgba(46, 125, 50, 0.08);
+  border-color: rgba(46, 125, 50, 0.18);
+}
+
+html[data-theme="light"] .project-card__status--ongoing {
+  color: var(--color-accent);
+  background: rgba(206, 148, 67, 0.08);
+  border-color: rgba(206, 148, 67, 0.18);
+}
+
+html[data-theme="light"] .project-card__status--house {
+  color: #1565c0;
+  background: rgba(21, 101, 192, 0.08);
+  border-color: rgba(21, 101, 192, 0.18);
 }
 
 
@@ -724,7 +803,7 @@
     font-size: clamp(2rem, 3.5vw, 2.75rem);
     font-weight: var(--fw-bold);
     line-height: var(--lh-tight);
-    color: #FFFFFF;
+    color: var(--color-text);
     margin-top: var(--space-sm);
     margin-bottom: var(--space-md);
   }
@@ -871,8 +950,13 @@
     font-family: var(--font-heading);
     font-size: var(--fs-h3);
     font-weight: var(--fw-semibold);
-    color: #FFFFFF;
+    color: var(--color-text);
     margin-bottom: var(--space-xs);
+    transition: color var(--transition-fast);
+  }
+
+  .materials-panel:hover .materials-panel__name {
+    color: var(--color-accent);
   }
 
 
