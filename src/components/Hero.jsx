@@ -17,6 +17,9 @@ export default function Hero({ isReady }) {
     img.style.transform = 'scale(1.04) translate3d(0, 0, 0)';
 
     const handleMouseMove = (e) => {
+      // Check if mouse hover is supported to prevent mobile touch glitches
+      if (!window.matchMedia('(hover: hover)').matches) return;
+
       const rect = hero.getBoundingClientRect();
       const x = e.clientX - rect.left;
       const y = e.clientY - rect.top;
@@ -35,6 +38,7 @@ export default function Hero({ isReady }) {
     };
 
     const handleMouseLeave = () => {
+      if (!window.matchMedia('(hover: hover)').matches) return;
       img.style.transition = 'transform 0.8s cubic-bezier(0.25, 1, 0.5, 1)';
       img.style.transform = 'scale(1.04) translate3d(0, 0, 0)';
     };
