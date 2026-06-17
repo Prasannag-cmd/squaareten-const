@@ -23,18 +23,87 @@ export default function Navbar({ isVisible = false, alwaysScrolled = false }) {
 
   // Theme locked to light-only mode
 
-  // Navbar show animation
+  // Navbar show and stagger entry animation
   useEffect(() => {
-    if (isVisible && navbarRef.current) {
-      gsap.to(navbarRef.current, {
-        y: 0,
+    const shouldAnimate = isVisible || alwaysScrolled;
+    if (shouldAnimate && navbarRef.current) {
+      const tl = gsap.timeline();
+      
+      const logo = navbarRef.current.querySelector('.navbar__logo');
+      const navChildren = navbarRef.current.querySelectorAll('.navbar__links > *');
+      const socials = navbarRef.current.querySelectorAll('.navbar__social-link');
+      const cta = navbarRef.current.querySelector('.navbar__cta-pill');
+      const hamburger = navbarRef.current.querySelector('.navbar__hamburger');
+      
+      // Set initial states for sub-elements so they fade & slide in
+      gsap.set([logo, navChildren, socials, cta, hamburger], { opacity: 0, y: -15 });
+      
+      // Set initial container state (slide-in from -100%)
+      gsap.set(navbarRef.current, { y: '-100%', opacity: 0 });
+      
+      // Slide container in
+      tl.to(navbarRef.current, {
+        y: '0%',
         opacity: 1,
-        duration: 0.6,
-        ease: 'power3.out',
-        delay: 0.2,
+        duration: 0.8,
+        ease: 'power4.out',
+        onComplete: () => {
+          // Clear transform and opacity inline styles so CSS hover/scroll transforms work perfectly
+          gsap.set(navbarRef.current, { clearProps: 'transform,opacity' });
+        }
       });
+      
+      // Animate logo
+      tl.to(logo, {
+        opacity: 1,
+        y: 0,
+        duration: 0.5,
+        ease: 'power3.out',
+      }, '-=0.4');
+      
+      // Stagger nav links
+      if (navChildren.length > 0) {
+        tl.to(navChildren, {
+          opacity: 1,
+          y: 0,
+          duration: 0.5,
+          stagger: 0.08,
+          ease: 'power3.out',
+        }, '-=0.3');
+      }
+      
+      // Stagger socials
+      if (socials.length > 0) {
+        tl.to(socials, {
+          opacity: 1,
+          y: 0,
+          duration: 0.4,
+          stagger: 0.05,
+          ease: 'power3.out',
+        }, '-=0.2');
+      }
+      
+      // Animate CTA
+      if (cta) {
+        tl.to(cta, {
+          opacity: 1,
+          y: 0,
+          duration: 0.5,
+          ease: 'back.out(1.7)',
+        }, '-=0.2');
+      }
+
+      // Animate Hamburger
+      if (hamburger) {
+        tl.to(hamburger, {
+          opacity: 1,
+          y: 0,
+          duration: 0.5,
+          ease: 'power3.out',
+        }, '-=0.4');
+      }
     }
-  }, [isVisible]);
+  }, [isVisible, alwaysScrolled]);
 
   // Scroll behavior
   useEffect(() => {
