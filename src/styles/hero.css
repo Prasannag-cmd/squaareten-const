@@ -364,8 +364,9 @@ html[data-theme="light"] .hero__stat-divider {
 
 @media (max-width: 968px) {
   .hero {
-    padding-top: 6rem;
-    min-height: auto;
+    padding-top: 9.5rem; /* Increased to prevent fixed mobile navbar overlap */
+    min-height: 100vh;
+    min-height: 100dvh;
   }
 
   .hero__container {
@@ -424,7 +425,9 @@ html[data-theme="light"] .hero__stat-divider {
 
 @media (max-width: 580px) {
   .hero {
-    padding: 5.5rem 1rem 1.5rem 1rem;
+    padding: 8.5rem 1rem 2rem 1rem; /* Increased to prevent fixed mobile navbar overlap */
+    min-height: 100vh;
+    min-height: 100dvh;
   }
 
   .hero__container {
