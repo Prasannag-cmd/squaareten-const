@@ -4,15 +4,6 @@ import { useHeroAnimation } from '../hooks/useGSAPAnimations';
 
 const slides = [
   {
-    image: '/assets/images/hero-bg-ai.png',
-    alt: 'Luxury Architectural Design Render'
-  },
-  {
-    image: '/assets/images/tamilnadu-presence-landscape.jpg',
-    imageMobile: '/assets/images/tamilnadu-presence-portrait.jpg',
-    alt: 'Squaareten Constructions Tamil Nadu Presence Map'
-  },
-  {
     image: '/assets/images/pool-image-1.jpeg',
     alt: 'Premium Modern Architecture with Pool'
   },
@@ -25,6 +16,7 @@ const slides = [
     alt: 'Premium Duplex Construction Facade'
   }
 ];
+
 
 export default function Hero({ isReady }) {
   const heroRef = useRef(null);

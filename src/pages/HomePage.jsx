@@ -8,7 +8,6 @@ import Navbar from '../components/Navbar';
 import Hero from '../components/Hero';
 import About from '../components/About';
 import Services from '../components/Services';
-import OurPresence from '../components/OurPresence';
 import ProjectCarousel from '../components/ProjectCarousel';
 import Stats from '../components/Stats';
 import Testimonials from '../components/Testimonials';
@@ -32,7 +31,6 @@ export default function HomePage() {
           <Hero isReady={onboardingComplete} />
           <About />
           <Services />
-          <OurPresence />
           <ProjectCarousel />
           <Stats />
           <Testimonials />
