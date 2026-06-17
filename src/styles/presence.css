@@ -1,0 +1,557 @@
+/* ============================================================
+   OUR PRESENCE — Geographic Map & City Grid Styling
+   Deep Luxury Dark-Blue Theme (Flagship Poster Aesthetic)
+   ============================================================ */
+
+.presence {
+  background: linear-gradient(135deg, #071124 0%, #020610 100%);
+  position: relative;
+  overflow: hidden;
+  padding: var(--space-section) 0;
+  border-top: 1px solid rgba(206, 148, 67, 0.15);
+  border-bottom: 1px solid rgba(206, 148, 67, 0.15);
+}
+
+/* ── Section Header (Poster Style) ────────────────────── */
+.presence__header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-bottom: var(--space-3xl);
+  position: relative;
+  z-index: 5;
+}
+
+.presence__logo-wrap {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background: rgba(10, 10, 10, 0.5);
+  border: 2px solid var(--color-accent);
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: var(--space-md);
+  box-shadow: var(--shadow-gold-glow);
+}
+
+.presence__logo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.presence__company-title {
+  font-family: var(--font-sans);
+  font-size: var(--fs-small);
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--ls-wide);
+  color: #FFFFFF;
+  text-transform: uppercase;
+  margin-bottom: var(--space-xs);
+  opacity: 0.95;
+}
+
+.presence__tamil-title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  font-weight: var(--fw-black);
+  color: var(--color-accent);
+  margin: var(--space-xs) 0;
+  letter-spacing: 0.02em;
+  text-shadow: 0 4px 15px rgba(206, 148, 67, 0.25);
+  line-height: 1.25;
+}
+
+.presence__tamil-subtitle {
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  font-weight: var(--fw-medium);
+  color: rgba(255, 255, 255, 0.8);
+  margin: 0 0 var(--space-md) 0;
+}
+
+.presence__pill-badge {
+  display: inline-block;
+  background: rgba(206, 148, 67, 0.12);
+  border: 1px solid var(--color-accent);
+  color: #FFFFFF;
+  font-family: var(--font-sans);
+  font-size: var(--fs-caption);
+  font-weight: var(--fw-bold);
+  text-transform: uppercase;
+  letter-spacing: var(--ls-widest);
+  padding: 8px 20px;
+  border-radius: var(--radius-full);
+  box-shadow: 0 0 15px rgba(206, 148, 67, 0.15);
+}
+
+/* ── Split Layout ────────────────────────────────────── */
+.presence__split {
+  display: flex;
+  gap: var(--space-3xl);
+  align-items: center;
+  position: relative;
+  z-index: 5;
+}
+
+.presence__left {
+  flex: 1.1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.presence__right {
+  flex: 1.2;
+}
+
+/* ── Map Panel & SVG ─────────────────────────────────── */
+.presence__map-card {
+  position: relative;
+  border-radius: var(--radius-xl);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(10, 20, 40, 0.3);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  padding: var(--space-lg);
+  overflow: hidden;
+  box-shadow: 
+    0 15px 35px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0px rgba(255, 255, 255, 0.05);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.presence__map-container {
+  width: 100%;
+  max-width: 440px;
+  margin: 0 auto;
+}
+
+.presence__map-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.presence__map-landmass {
+  transition: all 0.4s var(--ease-out-quart);
+}
+
+.presence__map-card:hover .presence__map-landmass {
+  stroke: rgba(206, 148, 67, 0.55);
+  fill: url(#mapGradient);
+}
+
+/* Flyer Trigger floating button */
+.presence__flyer-trigger {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: rgba(10, 10, 10, 0.7);
+  border: 1px solid var(--color-accent);
+  color: #FFFFFF;
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: var(--fw-bold);
+  text-transform: uppercase;
+  letter-spacing: var(--ls-wide);
+  cursor: pointer;
+  z-index: 10;
+  transition: all var(--transition-fast);
+}
+
+.presence__flyer-trigger:hover {
+  background: var(--color-accent);
+  color: #000000;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-glow);
+}
+
+/* Pins styling & animation */
+.presence__map-pin {
+  transition: transform 0.3s var(--ease-out-quart);
+}
+
+.pin-pulse-circle {
+  transition: r 0.3s ease;
+}
+
+.pin-pulse-ring {
+  transform-origin: center;
+  animation: pinRingPulse 2s infinite linear;
+}
+
+@keyframes pinRingPulse {
+  0% {
+    transform: scale(0.6);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.6);
+    opacity: 0;
+  }
+}
+
+.pin-marker {
+  transform: translateY(0);
+  transition: transform 0.3s var(--ease-spring), fill 0.3s ease;
+  filter: drop-shadow(0 3px 6px rgba(0,0,0,0.3));
+}
+
+.presence__map-pin:hover .pin-marker,
+.presence__map-pin.is-active .pin-marker {
+  transform: translateY(-2px) scale(1.1);
+  fill: #ff3333;
+}
+
+.pin-tooltip-bg {
+  animation: tooltipFade 0.3s var(--ease-out-quart) forwards;
+  filter: drop-shadow(0 4px 10px rgba(0,0,0,0.4));
+}
+
+@keyframes tooltipFade {
+  from { opacity: 0; transform: translateY(5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Caption Block */
+.presence__caption {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 0 var(--space-xs);
+  color: rgba(255, 255, 255, 0.55);
+  font-size: var(--fs-caption);
+  line-height: 1.5;
+}
+
+.presence__caption-bullet {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  flex-shrink: 0;
+  margin-top: 5px;
+  box-shadow: var(--shadow-gold-glow);
+}
+
+.presence__caption p {
+  margin: 0;
+  font-weight: var(--fw-medium);
+}
+
+/* ── City Cards ──────────────────────────────────────── */
+.presence__cities-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.presence__city-card {
+  position: relative;
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  background: rgba(255, 255, 255, 0.02);
+  padding: var(--space-md) var(--space-lg);
+  overflow: hidden;
+  transition: all var(--transition-normal);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  box-shadow: var(--shadow-sm);
+  z-index: 1;
+  cursor: pointer;
+}
+
+.presence__city-card:hover,
+.presence__city-card.is-active {
+  transform: translateX(6px);
+  border-color: rgba(206, 148, 67, 0.45);
+  background: rgba(206, 148, 67, 0.04);
+  box-shadow: 
+    inset 0 1px 0px rgba(255, 255, 255, 0.08),
+    0 10px 25px rgba(0, 0, 0, 0.35),
+    0 0 20px rgba(206, 148, 67, 0.1);
+}
+
+.presence__city-shine {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, transparent 100%);
+  pointer-events: none;
+  z-index: -1;
+}
+
+.presence__city-top {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.presence__city-icon {
+  font-size: 1.50rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.04);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: all var(--transition-fast);
+}
+
+.presence__city-card:hover .presence__city-icon,
+.presence__city-card.is-active .presence__city-icon {
+  background: rgba(206, 148, 67, 0.12);
+  border-color: var(--color-accent);
+}
+
+.presence__city-title-group {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.presence__city-name {
+  font-family: var(--font-heading);
+  font-size: var(--fs-h4);
+  font-weight: var(--fw-bold);
+  color: #FFFFFF;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.presence__city-tag {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  color: var(--color-accent);
+  font-weight: var(--fw-bold);
+  text-transform: uppercase;
+  letter-spacing: var(--ls-wide);
+}
+
+.presence__city-desc {
+  font-size: var(--fs-caption);
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.5;
+  margin: 0;
+}
+
+.presence__city-address {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.45);
+  border-top: 1px dashed rgba(255, 255, 255, 0.06);
+  padding-top: 8px;
+  line-height: 1.4;
+}
+
+.presence__city-footer {
+  display: flex;
+  margin-top: 2px;
+}
+
+.presence__city-call {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--color-accent);
+  text-decoration: none;
+  font-size: 11px;
+  font-weight: var(--fw-bold);
+  transition: color var(--transition-fast);
+  cursor: pointer;
+}
+
+.presence__city-call:hover {
+  color: var(--color-accent-light);
+}
+
+/* ── Stats Highlights Footer ─────────────────────────── */
+.presence__stats-card {
+  margin-top: var(--space-4xl);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--color-accent);
+  background: rgba(10, 20, 40, 0.3);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  padding: var(--space-xl) var(--space-lg);
+  box-shadow: 
+    0 15px 35px rgba(0, 0, 0, 0.4),
+    0 0 25px rgba(206, 148, 67, 0.08);
+  position: relative;
+  z-index: 5;
+}
+
+.presence__stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-md);
+  text-align: center;
+}
+
+.presence__stat-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  position: relative;
+}
+
+.presence__stat-col:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  right: -5px;
+  top: 15%;
+  height: 70%;
+  width: 1px;
+  background: rgba(206, 148, 67, 0.25);
+}
+
+.presence__stat-number {
+  font-family: var(--font-heading);
+  font-size: clamp(1.5rem, 3.5vw, 2.25rem);
+  font-weight: var(--fw-black);
+  color: var(--color-accent);
+  line-height: 1;
+}
+
+.presence__stat-label {
+  font-family: var(--font-sans);
+  font-size: var(--fs-caption);
+  color: #FFFFFF;
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--ls-wide);
+  text-transform: uppercase;
+}
+
+/* ── Lightbox Modal for Contact Flyer ───────────────── */
+.presence-modal__overlay {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-modal);
+  background: rgba(3, 8, 16, 0.95);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-xl);
+  box-sizing: border-box;
+  cursor: zoom-out;
+}
+
+.presence-modal__content {
+  position: relative;
+  max-width: 550px;
+  width: 100%;
+  cursor: default;
+}
+
+.presence-modal__close {
+  position: absolute;
+  top: -3.5rem;
+  right: 0;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #FFFFFF;
+  font-size: var(--fs-h4);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+}
+
+.presence-modal__close:hover {
+  transform: rotate(90deg);
+  background-color: var(--color-accent);
+  color: #000000;
+  border-color: var(--color-accent);
+}
+
+.presence-modal__img-container {
+  border-radius: var(--radius-xl);
+  border: 1px solid rgba(206, 148, 67, 0.35);
+  overflow: hidden;
+  box-shadow: 
+    0 25px 60px rgba(0, 0, 0, 0.6),
+    0 0 35px rgba(206, 148, 67, 0.15);
+}
+
+.presence-modal__img {
+  width: 100%;
+  height: auto;
+  max-height: 80vh;
+  object-fit: contain;
+  display: block;
+}
+
+/* ── Responsive styling ────────────────────────────── */
+@media (max-width: 992px) {
+  .presence__split {
+    flex-direction: column;
+    gap: var(--space-2xl);
+  }
+  
+  .presence__left, 
+  .presence__right {
+    width: 100%;
+  }
+
+  .presence__map-card {
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  .presence__caption {
+    max-width: 500px;
+    margin: 0 auto;
+  }
+  
+  .presence__stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-lg);
+  }
+
+  .presence__stat-col:nth-child(2n)::after {
+    display: none;
+  }
+}
+
+@media (max-width: 580px) {
+  .presence__stats-card {
+    padding: var(--space-lg) var(--space-md);
+  }
+
+  .presence__stats-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-md);
+  }
+
+  .presence__stat-col::after {
+    display: none !important;
+  }
+
+  .presence-modal__content {
+    max-width: 100%;
+  }
+
+  .presence-modal__close {
+    top: -3rem;
+  }
+}

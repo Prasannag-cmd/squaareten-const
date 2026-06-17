@@ -12,6 +12,7 @@ import ProjectCarousel from '../components/ProjectCarousel';
 import Stats from '../components/Stats';
 import Testimonials from '../components/Testimonials';
 import Contact from '../components/Contact';
+import OurPresence from '../components/OurPresence';
 import Footer from '../components/Footer';
 
 export default function HomePage() {
@@ -35,6 +36,7 @@ export default function HomePage() {
           <Stats />
           <Testimonials />
           <Contact />
+          <OurPresence />
         </main>
         <Footer />
       </div>

@@ -7,6 +7,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Navbar from '../components/Navbar';
+import OurPresence from '../components/OurPresence';
 import Footer from '../components/Footer';
 import { projectsData } from '../data/projectsData';
 
@@ -698,6 +699,9 @@ export default function ProjectsPage() {
             </div>
           )}
         </section>
+
+        {/* ── SECTION 03.2: Tamil Nadu Footprint Map ────── */}
+        <OurPresence />
 
         {/* ── SECTION 03.5: Materials Showcase ──────────── */}
         <section className="projects-materials" ref={materialsSectionRef}>
