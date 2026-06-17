@@ -1,17 +1,49 @@
 /* ============================================================
-   HERO — Corporate Split-Screen Parallax Layout (No Fog)
+   HERO — Full Screen Covered Background Layout (No Fog)
    ============================================================ */
 
 .hero {
   position: relative;
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  background-color: #0c0c0c; /* Matches left solid panel base */
-  padding: 0;
+  background-color: var(--color-bg);
+  padding: 6.5rem 2rem 2.5rem 2rem;
   box-sizing: border-box;
   overflow: hidden;
+  transition: background-color var(--transition-slow);
+}
+
+/* Full Screen Background Image Wrapper */
+.hero__bg-wrapper {
+  position: absolute;
+  inset: -30px; /* Parallax boundary padding to prevent white edge reveal */
+  z-index: 0;
+  overflow: hidden;
+}
+
+.hero__bg-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  filter: brightness(0.75) contrast(1.1); /* Crisp boardroom lighting */
+  will-change: transform;
+}
+
+/* Localized Dark Overlay to ensure high contrast on left text while leaving right side clean */
+.hero__bg-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  /* Dark vertical fade ONLY on the left 40%, leaving the right sunset desk 100% sharp and unfiltered */
+  background: linear-gradient(
+    90deg,
+    rgba(10, 10, 10, 0.95) 0%,
+    rgba(10, 10, 10, 0.6) 38%,
+    rgba(10, 10, 10, 0) 70%
+  );
 }
 
 /* Background blueprint grid overlay */
@@ -28,15 +60,21 @@
   opacity: 0.85;
 }
 
+html[data-theme="light"] .hero__grid-overlay {
+  background-image: 
+    linear-gradient(rgba(0, 0, 0, 0.01) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.01) 1px, transparent 1px);
+}
+
 /* Watermark Text */
 .hero__watermark {
   position: absolute;
   font-family: var(--font-sans);
-  font-size: clamp(6rem, 16vw, 16rem);
+  font-size: clamp(6rem, 18vw, 18rem);
   font-weight: 900;
   text-transform: uppercase;
   color: #FFFFFF;
-  opacity: 0.012;
+  opacity: 0.02;
   z-index: 1;
   pointer-events: none;
   letter-spacing: 0.08em;
@@ -49,34 +87,27 @@
   transform: translate(-50%, -50%);
 }
 
-/* Split Grid Container */
+html[data-theme="light"] .hero__watermark {
+  color: #000000;
+  opacity: 0.012;
+}
+
+/* Hero container content centering */
 .hero__container {
   position: relative;
   z-index: 2;
-  display: grid;
-  grid-template-columns: 42fr 58fr;
-  flex-grow: 1;
-  width: 100%;
-  height: 100%;
-  margin: 0;
-  padding: 0;
-  padding-top: 80px; /* Offset for Header height */
-}
-
-/* Left Content Panel (Solid Dark Corporate Boardroom style) */
-.hero__left-panel {
-  background-color: #0c0c0c;
   display: flex;
   align-items: center;
-  padding: 0 4rem 2rem 5rem;
-  z-index: 3;
-  position: relative;
-  height: 100%;
-  box-sizing: border-box;
+  flex-grow: 1;
+  width: 100%;
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding-bottom: 2rem;
 }
 
+/* Left Content Styles */
 .hero__content-left {
-  max-width: 520px;
+  max-width: 650px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -94,10 +125,10 @@
 
 .hero__title {
   font-family: var(--font-heading);
-  font-size: clamp(2.25rem, 3.8vw, 3.75rem);
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
   font-weight: var(--fw-black);
   line-height: 1.15;
-  color: #FFFFFF;
+  color: #FFFFFF; /* High readability against dark overlay in both themes */
   margin-bottom: 1.5rem;
   letter-spacing: var(--ls-tight);
 }
@@ -108,8 +139,9 @@
 
 .hero__description {
   font-size: var(--fs-body);
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(255, 255, 255, 0.75); /* High readability against dark overlay in both themes */
   line-height: var(--lh-relaxed);
+  max-width: 520px;
   margin-bottom: 2.5rem;
 }
 
@@ -119,13 +151,13 @@
   flex-wrap: wrap;
 }
 
-/* Corporate Buttons */
+/* Premium Buttons */
 .hero__btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
-  padding: 14px 30px;
+  gap: 12px;
+  padding: 14px 32px;
   border-radius: var(--radius-full);
   font-size: var(--fs-small);
   font-weight: var(--fw-bold);
@@ -140,26 +172,29 @@
   background: var(--color-accent);
   color: #000000;
   border: 1px solid var(--color-accent);
+  box-shadow: var(--shadow-sm);
 }
 
 .hero__btn--solid:hover {
   background: var(--color-accent-light);
   border-color: var(--color-accent-light);
-  transform: translateY(-2px);
+  transform: translateY(-3px);
   box-shadow: var(--shadow-glow-strong);
 }
 
 .hero__btn--outline {
   background: transparent;
-  color: #FFFFFF;
-  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: #FFFFFF; /* High readability in both themes */
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
 .hero__btn--outline:hover {
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(206, 148, 67, 0.15);
   border-color: var(--color-accent);
   color: var(--color-accent);
-  transform: translateY(-2px);
+  transform: translateY(-3px);
 }
 
 .hero__btn-icon {
@@ -170,67 +205,34 @@
   transform: translate(2px, -2px);
 }
 
-/* Right Showcase Panel (Static Mask with Parallaxing background Image) */
-.hero__right-panel {
-  position: relative;
-  z-index: 1;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-}
-
-.hero__right-panel-mask {
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  position: relative;
-}
-
-.hero__bg-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
-  display: block;
-  will-change: transform;
-}
-
-/* Side Shadow Overlay to integrate image with left boardroom panel */
-.hero__right-panel-shadow {
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  width: 80px;
-  background: linear-gradient(90deg, #0c0c0c 0%, rgba(12, 12, 12, 0) 100%);
-  z-index: 2;
-  pointer-events: none;
-}
-
-/* Bottom Stats Bar (Stretching full-width at the bottom) */
+/* Bottom Stats Bar Styles */
 .hero__stats-bar {
   position: relative;
-  z-index: 4;
+  z-index: 2;
   width: 100%;
+  max-width: var(--container-max);
+  margin: 0 auto;
   display: flex;
   justify-content: space-around;
   align-items: center;
-  padding: 1.5rem 3rem;
+  padding: 1.75rem 3rem;
+  border-radius: 24px;
   background: var(--glass-bg);
-  border-top: var(--border-double-glass);
   backdrop-filter: blur(var(--glass-blur));
   -webkit-backdrop-filter: blur(var(--glass-blur));
-  margin: 0;
-  border-radius: 0; /* Fully flat, boardroom corporate edge-to-edge footer style */
-  box-shadow: 0 -8px 30px rgba(0, 0, 0, 0.25);
+  border: var(--border-double-glass);
+  box-shadow: 
+    var(--shadow-double-glow),
+    0 15px 35px rgba(0, 0, 0, 0.4);
   opacity: 0; /* Animated by GSAP */
 }
 
-/* Light Theme Stats Bar matching the mockup beige/cream exactly */
+/* Light Theme Bottom Stats Bar Matching Mockup Beige/Cream */
 html[data-theme="light"] .hero__stats-bar {
   background: #F7F4EB;
-  border-top: 1px solid rgba(206, 148, 67, 0.25);
-  box-shadow: 0 -8px 30px rgba(154, 125, 74, 0.08);
+  border: 1px solid rgba(206, 148, 67, 0.25);
+  box-shadow: 
+    0 10px 30px rgba(154, 125, 74, 0.1);
 }
 
 .hero__stat-item {
@@ -243,7 +245,7 @@ html[data-theme="light"] .hero__stats-bar {
 }
 
 .hero__stat-item:hover {
-  transform: translateY(-2px);
+  transform: translateY(-3px);
 }
 
 .hero__stat-icon {
@@ -255,8 +257,9 @@ html[data-theme="light"] .hero__stats-bar {
 }
 
 .hero__stat-icon svg {
-  width: 32px;
-  height: 32px;
+  width: 36px;
+  height: 36px;
+  filter: drop-shadow(0 2px 8px rgba(206, 148, 67, 0.2));
 }
 
 .hero__stat-info {
@@ -266,7 +269,7 @@ html[data-theme="light"] .hero__stats-bar {
 
 .hero__stat-num {
   font-family: var(--font-heading);
-  font-size: clamp(1.25rem, 1.6vw, 1.5rem);
+  font-size: clamp(1.25rem, 1.8vw, 1.65rem);
   font-weight: var(--fw-black);
   color: #FFFFFF;
   margin: 0;
@@ -291,9 +294,9 @@ html[data-theme="light"] .hero__stat-lbl {
 
 .hero__stat-divider {
   width: 1px;
-  height: 36px;
+  height: 40px;
   background-color: rgba(255, 255, 255, 0.12);
-  margin: 0 1rem;
+  margin: 0 1.5rem;
 }
 
 html[data-theme="light"] .hero__stat-divider {
@@ -305,27 +308,21 @@ html[data-theme="light"] .hero__stat-divider {
    ============================================================ */
 
 @media (max-width: 1100px) {
-  .hero__left-panel {
-    padding: 0 3rem 2rem 3rem;
+  .hero {
+    padding: 6.5rem 1.5rem 2rem 1.5rem;
   }
 }
 
 @media (max-width: 968px) {
   .hero {
-    height: auto;
-    min-height: 100vh;
+    padding-top: 6rem;
+    min-height: auto;
   }
 
   .hero__container {
-    grid-template-columns: 1fr;
-    height: auto;
-    padding-top: 70px;
-  }
-
-  .hero__left-panel {
-    padding: 4rem 2rem 3rem 2rem;
     text-align: center;
     justify-content: center;
+    padding-bottom: 3.5rem;
   }
 
   .hero__content-left {
@@ -333,19 +330,13 @@ html[data-theme="light"] .hero__stat-divider {
     max-width: 100%;
   }
 
+  .hero__description {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
   .hero__actions {
     justify-content: center;
-  }
-
-  .hero__right-panel {
-    height: 400px;
-  }
-
-  .hero__right-panel-shadow {
-    width: 100%;
-    height: 80px;
-    background: linear-gradient(180deg, #0c0c0c 0%, rgba(12, 12, 12, 0) 100%);
-    bottom: auto;
   }
 
   .hero__stats-bar {
@@ -364,16 +355,16 @@ html[data-theme="light"] .hero__stat-divider {
 }
 
 @media (max-width: 580px) {
-  .hero__left-panel {
-    padding: 3rem 1rem 2rem 1rem;
+  .hero {
+    padding: 5.5rem 1rem 1.5rem 1rem;
+  }
+
+  .hero__container {
+    padding-bottom: 2.5rem;
   }
 
   .hero__title {
-    font-size: 2.15rem;
-  }
-
-  .hero__right-panel {
-    height: 300px;
+    font-size: 2.25rem;
   }
 
   .hero__actions {

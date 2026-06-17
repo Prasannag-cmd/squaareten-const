@@ -50,6 +50,18 @@ export default function Hero({ isReady }) {
 
   return (
     <section className="hero" id="hero" ref={heroRef}>
+      {/* Full screen background image wrapper */}
+      <div className="hero__bg-wrapper">
+        <img 
+          ref={imgRef}
+          src="/assets/images/office-clean.jpg" 
+          alt="Squaare Ten Constructions Office" 
+          className="hero__bg-img"
+          loading="eager"
+        />
+        <div className="hero__bg-overlay"></div>
+      </div>
+
       {/* Background blueprint grid overlay */}
       <div className="hero__grid-overlay"></div>
       
@@ -57,49 +69,32 @@ export default function Hero({ isReady }) {
       <div className="hero__watermark">SQUAARE</div>
 
       <div className="hero__container">
-        {/* Left Column: Solid Dark Corporate Board Panel (Static) */}
-        <div className="hero__left-panel">
-          <div className="hero__content-left">
-            <span className="hero__tagline hero__label">DESIGNING THE LIFE OF THE FUTURE</span>
-            <h1 className="hero__title">
-              Building Spaces.<br />
-              <span className="hero__title-accent">Inspiring Lives.</span>
-            </h1>
-            <p className="hero__description">
-              Premium residential, commercial &amp; construction solutions across Tamil Nadu.
-            </p>
-            <div className="hero__actions">
-              <Link to="/projects/residential" className="hero__btn hero__btn--solid">
-                <span>Explore Projects</span>
-                <svg className="hero__btn-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2.5">
-                  <line x1="7" y1="17" x2="17" y2="7" />
-                  <polyline points="7 7 17 7 17 17" />
-                </svg>
-              </Link>
-              <Link to="/consultation" className="hero__btn hero__btn--outline">
-                <span>Book Consultation</span>
-                <svg className="hero__btn-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2.5">
-                  <line x1="7" y1="17" x2="17" y2="7" />
-                  <polyline points="7 7 17 7 17 17" />
-                </svg>
-              </Link>
-            </div>
+        {/* Left Content Column */}
+        <div className="hero__content-left">
+          <span className="hero__tagline hero__label">DESIGNING THE LIFE OF THE FUTURE</span>
+          <h1 className="hero__title">
+            Building Spaces.<br />
+            <span className="hero__title-accent">Inspiring Lives.</span>
+          </h1>
+          <p className="hero__description">
+            Premium residential, commercial &amp; construction solutions across Tamil Nadu.
+          </p>
+          <div className="hero__actions">
+            <Link to="/projects/residential" className="hero__btn hero__btn--solid">
+              <span>Explore Projects</span>
+              <svg className="hero__btn-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2.5">
+                <line x1="7" y1="17" x2="17" y2="7" />
+                <polyline points="7 7 17 7 17 17" />
+              </svg>
+            </Link>
+            <Link to="/consultation" className="hero__btn hero__btn--outline">
+              <span>Book Consultation</span>
+              <svg className="hero__btn-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2.5">
+                <line x1="7" y1="17" x2="17" y2="7" />
+                <polyline points="7 7 17 7 17 17" />
+              </svg>
+            </Link>
           </div>
-        </div>
-
-        {/* Right Column: Office Backdrop Parallax Frame (Motion) */}
-        <div className="hero__right-panel">
-          <div className="hero__right-panel-mask">
-            <img 
-              ref={imgRef}
-              src="/assets/images/office-clean.jpg" 
-              alt="Squaare Ten Constructions Office" 
-              className="hero__bg-img"
-              loading="eager"
-            />
-          </div>
-          {/* Subtle gradient overlay to integrate image smoothly with left panel */}
-          <div className="hero__right-panel-shadow"></div>
         </div>
       </div>
 

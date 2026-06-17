@@ -34,8 +34,7 @@ export function useGSAPTimeline(containerRef, timelineConfig = {}, deps = []) {
     if (!heroRef.current || !isReady) return;
 
     const hero = heroRef.current;
-    const leftPanel = hero.querySelector('.hero__left-panel');
-    const rightPanel = hero.querySelector('.hero__right-panel');
+    const bgWrapper = hero.querySelector('.hero__bg-wrapper');
     const contentLeft = hero.querySelector('.hero__content-left');
     const tagline = hero.querySelector('.hero__tagline');
     const title = hero.querySelector('.hero__title');
@@ -46,85 +45,77 @@ export function useGSAPTimeline(containerRef, timelineConfig = {}, deps = []) {
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({ delay: 0.1 });
 
-      // 1. Reveal Left solid dark panel
-      if (leftPanel) {
-        tl.fromTo(leftPanel,
-          { opacity: 0, x: -30 },
-          { opacity: 1, x: 0, duration: 0.8, ease: 'power3.out' }
+      // 1. Fade in the background image wrapper
+      if (bgWrapper) {
+        tl.fromTo(bgWrapper,
+          { opacity: 0 },
+          { opacity: 1, duration: 1, ease: 'power2.out' }
         );
       }
 
-      // 2. Reveal Right image panel
-      if (rightPanel) {
-        tl.fromTo(rightPanel,
-          { opacity: 0, x: 30 },
-          { opacity: 1, x: 0, duration: 1, ease: 'power3.out' },
-          '-=0.6'
-        );
-      }
-
-      // 3. Stagger reveal left content items
+      // 2. Reveal Left Content elements
       tl.to(contentLeft, {
         opacity: 1,
         duration: 0.1,
-      }, '-=0.6');
+      }, '-=0.5');
 
       tl.fromTo(tagline,
-        { opacity: 0, y: -15 },
-        { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' },
-        '-=0.5'
+        { opacity: 0, y: -20 },
+        { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out' },
+        '-=0.4'
       );
 
       tl.fromTo(title,
-        { opacity: 0, y: 30 },
-        { opacity: 1, y: 0, duration: 0.7, ease: 'expo.out' },
+        { opacity: 0, y: 40 },
+        { opacity: 1, y: 0, duration: 0.8, ease: 'expo.out' },
         '-=0.4'
       );
 
       tl.fromTo(desc,
         { opacity: 0 },
-        { opacity: 1, duration: 0.6, ease: 'power2.out' },
-        '-=0.4'
+        { opacity: 1, duration: 0.7, ease: 'power2.out' },
+        '-=0.5'
       );
 
       tl.fromTo(actions,
-        { opacity: 0, y: 15 },
-        { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' },
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' },
         '-=0.4'
       );
 
-      // 4. Reveal Bottom Stats Bar
+      // 3. Reveal Bottom Stats Bar
       if (statsBar) {
         tl.fromTo(statsBar,
-          { opacity: 0, y: 20 },
-          { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' },
-          '-=0.5'
+          { opacity: 0, y: 30 },
+          { opacity: 1, y: 0, duration: 0.9, ease: 'power3.out' },
+          '-=0.7'
         );
         
+        // Slight stagger reveal for stat items inside the bar
         const items = statsBar.querySelectorAll('.hero__stat-item');
         const dividers = statsBar.querySelectorAll('.hero__stat-divider');
         
         if (items.length) {
           tl.fromTo(items,
-            { opacity: 0, y: 12 },
-            { opacity: 1, y: 0, duration: 0.5, stagger: 0.06, ease: 'power2.out' },
-            '-=0.4'
+            { opacity: 0, y: 15 },
+            { opacity: 1, y: 0, duration: 0.6, stagger: 0.08, ease: 'power2.out' },
+            '-=0.5'
           );
         }
         if (dividers.length) {
           tl.fromTo(dividers,
             { opacity: 0, scaleY: 0 },
-            { opacity: 1, scaleY: 1, duration: 0.4, stagger: 0.04, ease: 'power2.out' },
-            '-=0.3'
+            { opacity: 1, scaleY: 1, duration: 0.5, stagger: 0.06, ease: 'power2.out' },
+            '-=0.4'
           );
         }
       }
 
-      // Watermark Parallax depth trigger on scroll
+      // Watermark Parallax Depth Effect on Scroll
       const watermark = hero.querySelector('.hero__watermark');
       if (watermark) {
         gsap.to(watermark, {
-          yPercent: 18,
+          yPercent: 20,
           ease: 'none',
           scrollTrigger: {
             trigger: hero,
