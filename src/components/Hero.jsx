@@ -1,79 +1,72 @@
-import { useRef, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { useHeroAnimation } from '../hooks/useGSAPAnimations';
 
+const slides = [
+  {
+    image: '/assets/images/hero-bg-ai.png',
+    alt: 'Luxury Architectural Design Render'
+  },
+  {
+    image: '/assets/images/pool-image-1.jpeg',
+    alt: 'Premium Modern Architecture with Pool'
+  },
+  {
+    image: '/assets/images/project-villa.png',
+    alt: 'Modern Residential Villa Elevation'
+  },
+  {
+    image: '/assets/images/project-duplex-main.jpg',
+    alt: 'Premium Duplex Construction Facade'
+  }
+];
+
 export default function Hero({ isReady }) {
   const heroRef = useRef(null);
-  const imgRef = useRef(null);
+  const [currentSlide, setCurrentSlide] = useState(0);
 
   useHeroAnimation(heroRef, isReady);
 
   useEffect(() => {
-    const hero = heroRef.current;
-    const img = imgRef.current;
-    if (!hero || !img) return;
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % slides.length);
+    }, 6000); // Auto-change slide every 6 seconds
 
-    // Pre-scale on mount for smooth parallax padding
-    img.style.transform = 'scale(1.04) translate3d(0, 0, 0)';
-
-    const handleMouseMove = (e) => {
-      // Check if mouse hover is supported to prevent mobile touch glitches
-      if (!window.matchMedia('(hover: hover)').matches) return;
-
-      const rect = hero.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-
-      // Normalize offsets to -0.5 to 0.5
-      const percentX = (x / rect.width) - 0.5;
-      const percentY = (y / rect.height) - 0.5;
-
-      // Translate shift (max 25px)
-      const maxTranslate = 25;
-      const translateX = percentX * -maxTranslate;
-      const translateY = percentY * -maxTranslate;
-
-      img.style.transition = 'transform 0.2s cubic-bezier(0.25, 1, 0.5, 1)';
-      img.style.transform = `scale(1.08) translate3d(${translateX}px, ${translateY}px, 0)`;
-    };
-
-    const handleMouseLeave = () => {
-      if (!window.matchMedia('(hover: hover)').matches) return;
-      img.style.transition = 'transform 0.8s cubic-bezier(0.25, 1, 0.5, 1)';
-      img.style.transform = 'scale(1.04) translate3d(0, 0, 0)';
-    };
-
-    hero.addEventListener('mousemove', handleMouseMove);
-    hero.addEventListener('mouseleave', handleMouseLeave);
-
-    return () => {
-      hero.removeEventListener('mousemove', handleMouseMove);
-      hero.removeEventListener('mouseleave', handleMouseLeave);
-    };
+    return () => clearInterval(timer);
   }, []);
+
+  const handleIndicatorClick = (index) => {
+    setCurrentSlide(index);
+  };
 
   return (
     <section className="hero" id="hero" ref={heroRef}>
-      {/* Full screen background image wrapper */}
+      {/* Background Slideshow (Acts as the background wrapper for GSAP entry fade) */}
       <div className="hero__bg-wrapper">
-        <img 
-          ref={imgRef}
-          src="/assets/images/office-clean.jpg" 
-          alt="Squaare Ten Constructions Office" 
-          className="hero__bg-img"
-          loading="eager"
-        />
+        {slides.map((slide, idx) => (
+          <div 
+            key={idx} 
+            className={`hero__slide ${idx === currentSlide ? 'is-active' : ''}`}
+          >
+            <img 
+              src={slide.image} 
+              alt={slide.alt} 
+              className="hero__slide-img"
+              loading={idx === 0 ? "eager" : "lazy"}
+            />
+          </div>
+        ))}
         <div className="hero__bg-overlay"></div>
       </div>
 
-      {/* Background blueprint grid overlay */}
+      {/* Technical Drafting Grid Overlay */}
       <div className="hero__grid-overlay"></div>
       
-      {/* Subtle watermark overlay in the background */}
+      {/* Deep Watermark Branding */}
       <div className="hero__watermark">SQUAARE</div>
 
       <div className="hero__container">
-        {/* Left Content Column */}
+        {/* Left Column: Floating Information and Actions */}
         <div className="hero__content-left">
           <span className="hero__tagline hero__label">DESIGNING THE LIFE OF THE FUTURE</span>
           <h1 className="hero__title">
@@ -99,6 +92,18 @@ export default function Hero({ isReady }) {
               </svg>
             </Link>
           </div>
+        </div>
+
+        {/* Minimalist Slideshow Indicators */}
+        <div className="hero__indicators">
+          {slides.map((_, idx) => (
+            <button
+              key={idx}
+              className={`hero__indicator-dot ${idx === currentSlide ? 'is-active' : ''}`}
+              onClick={() => handleIndicatorClick(idx)}
+              aria-label={`Go to slide ${idx + 1}`}
+            />
+          ))}
         </div>
       </div>
 
