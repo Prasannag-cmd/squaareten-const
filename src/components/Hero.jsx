@@ -8,6 +8,11 @@ const slides = [
     alt: 'Luxury Architectural Design Render'
   },
   {
+    image: '/assets/images/tamilnadu-presence-landscape.jpg',
+    imageMobile: '/assets/images/tamilnadu-presence-portrait.jpg',
+    alt: 'Squaareten Constructions Tamil Nadu Presence Map'
+  },
+  {
     image: '/assets/images/pool-image-1.jpeg',
     alt: 'Premium Modern Architecture with Pool'
   },
@@ -48,12 +53,17 @@ export default function Hero({ isReady }) {
             key={idx} 
             className={`hero__slide ${idx === currentSlide ? 'is-active' : ''}`}
           >
-            <img 
-              src={slide.image} 
-              alt={slide.alt} 
-              className="hero__slide-img"
-              loading={idx === 0 ? "eager" : "lazy"}
-            />
+            <picture className="hero__slide-pic">
+              {slide.imageMobile && (
+                <source media="(max-width: 768px)" srcSet={slide.imageMobile} />
+              )}
+              <img 
+                src={slide.image} 
+                alt={slide.alt} 
+                className="hero__slide-img"
+                loading={idx === 0 ? "eager" : "lazy"}
+              />
+            </picture>
           </div>
         ))}
         <div className="hero__bg-overlay"></div>
